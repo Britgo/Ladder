@@ -42,6 +42,7 @@ foreach ($Playlist as $p) {
 	club:"{$p->Club->Name}", wins:{$p->Won}, losses:{$p->Lost}});
 
 EOT;
+}
 ?>
 function filloutrow(tbod, pl, i) {
 	var rownode = tbod.insertRow(i);
