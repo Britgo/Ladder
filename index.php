@@ -96,13 +96,14 @@ $hasfoot = true;
 include 'php/nav.php'; ?>
 <h1>British Go Association Ladder</h1>
 <form name="selform">
-<select name="clubsel">
+<select name="clubsel" onchange="fillintab();">
 <option selected="selected">(None)</option>
 <?php
 $ca = array();
 foreach ($Clublist as $c) {
-	array_push($ca, $c->display_name());
+	$ca[$c->display_name()] = 1;
 }
+$ca = array_keys($ca);
 usort($ca, 'strcasecmp');
 $n = 1;
 foreach ($ca as $c) {
