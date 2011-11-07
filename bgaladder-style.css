@@ -1,0 +1,313 @@
+a.memb:active {
+	color: #D53B3B;
+}
+a.memb:link {
+	color: #D53B3B;
+}
+a.memb:visited {
+	color: #D53B3B;
+}
+a.news:active {
+	font-weight: bolder;
+	color: #F01EBE;
+}
+a.news:link {
+	font-weight: bolder;
+	color: #F01EBE;
+}
+a.news:visited {
+	font-weight: bolder;
+	color: #F01EBE;
+}
+a.name:active {
+	color: #7718EB;
+	text-decoration: none;
+}
+a.name:hover {
+	text-decoration: underline;
+	color: #7718EB;
+}
+a.name:link {
+	color: black;
+	text-decoration: none;
+}
+a.name:visited {
+	color: black;
+	text-decoration: none;
+}
+a.nound:active {
+	text-decoration: none;
+	color: black;
+}
+a.nound:hover {
+	color: black;
+	text-decoration: underline;
+}
+a.nound:link {
+	text-decoration: none;
+	color: black;
+}
+a.nound:visited {
+	text-decoration: none;
+	color: black;
+}
+a.noundm:active {
+	color: #8C4857;
+	text-decoration: none;
+}
+a.noundm:hover {
+	color: #8C4857;
+	text-decoration: underline;
+}
+a.noundm:link {
+	color: #8C4857;
+	text-decoration: none;
+}
+a.noundm:visited {
+	color: #8C4857;
+	text-decoration: none;
+}
+a.noundd:active {
+	color: #553999;
+	text-decoration: none;
+}
+a.noundd:hover {
+	color: #553999;
+	text-decoration: underline;
+}
+a.noundd:link {
+	color: #553999;
+	text-decoration: none;
+}
+a.noundd:visited {
+	color: #553999;
+	text-decoration: none;
+}
+a:active {
+	color: black;
+}
+a:link {
+	color: black;
+}
+a:visited {
+	color: black;
+}
+a.il:active {
+	color: #528652;
+}
+a.il:link {
+	color: #528652;
+}
+a.il:visited {
+	color: #528652;
+}
+h1 {
+	text-align: center;
+	color: #B38F7D;
+}
+h2 {
+	color: #B38F7D;
+}
+h3 {
+	color: #B38F7D;
+}
+body {
+	background-color: #FFFFB3;
+	color: #000000;
+	text-align: justify;
+	font-size: 10pt;
+	line-height: 1.2;
+	height: 100%;
+   max-height: 100%;
+   margin: 0;
+   padding: 0;
+   border: 0;
+   overflow: hidden;
+}
+body.il {
+	background-color: #C9F1C9;
+	text-align: justify;
+	color: #000000;
+	font-size: 10pt;
+	line-height: 1.2;
+	height: 100%;
+   max-height: 100%;
+   margin: 0;
+   padding: 0;
+   border: 0;
+   overflow: hidden;
+}
+#Nav {
+    position: absolute;
+    top: 0;
+    float: left;
+    width: 160px;
+    height: 100%;
+}
+#Content {
+    position: fixed;
+    top: 0;
+    left: 160px;
+    height: 100%;
+    overflow: auto;
+}
+#Navwf {
+	position: absolute;
+   top: 0;
+   float: left;
+   width: 150px;
+   height: 85%;
+}
+#Contentwf {
+   position: fixed;
+   top: 0;
+   left: 150px;
+   height: 85%;
+   overflow: auto;
+}
+#Footer {
+   position: absolute;
+   bottom: 0%;
+   width: 100%;
+   height: 15%;
+   clear: both;
+   overflow: hidden;
+}
+.innertube {
+	margin: 10px;
+}
+p.note {
+	text-align: center;
+	font-size: 8pt;
+	line-height: 1.2;
+}
+p.forms {
+	text-indent: 1.5cm;
+	line-height: 1.5cm;
+}
+p.forms2 {
+	line-height: .5cm;
+	text-indent: 1.5cm;
+}
+span.drawn {
+	color: #0000FF;
+}
+span.lost {
+	color: #FF0000;
+}
+span.won {
+	color: #28AA28;
+}
+span.prom {
+	color: #428F48;
+}
+span.releg {
+	color: #EA484A;
+}
+li.nav {
+	font-size: 8pt;
+	line-height: 1.2;
+}
+td.subind {
+	padding-left: 0.25in;
+	margin-left: 0.5in;
+	font-size: small;
+}
+table.clublist {
+	empty-cells: show;
+	border-spacing: 5px;
+	padding: 2px;
+}
+table.clubupd {
+	empty-cells: show;
+	border-spacing: 1px;
+	padding: 1px;
+}
+table.matchesd {
+	empty-cells: show;
+	border-spacing: 1px;
+	padding: 2px;
+}
+table.matchesosd {
+	empty-cells: show;
+	border-spacing: 3px;
+	padding: 4px;
+}
+table.matchesupd {
+	padding: 4px;
+	border-spacing: 5px;
+	empty-cells: show;
+}
+table.membpick {
+	empty-cells: show;
+	border-spacing: 2px;
+	padding: 2px;
+}
+table.plinits {
+	empty-cells: show;
+	border-spacing: 0px;
+	padding: 2px;
+	border: 0px;
+}
+table.pllist {
+	empty-cells: show;
+	border-spacing: 5px;
+	padding: 2px;
+}
+table.plupd {
+	empty-cells: show;
+	border-spacing: 2px;
+	padding: 1px;
+	border: 0px;
+}
+table.resultsb {
+	empty-cells: show;
+	border-spacing: 3px;
+	padding: 2px;
+}
+table.teamdisp {
+	padding: 2px;
+	border-spacing: 5px;
+	empty-cells: show;
+}
+table.teamsb {
+	padding: 2px;
+	border-spacing: 5px;
+	empty-cells: show;
+}
+table.teamsupdb {
+	padding: 2px;
+	border-spacing: 3px;
+	empty-cells: show;
+}
+table.updmatch {
+	padding: 2px;
+	border-spacing: 3px;
+	empty-cells: show;
+}
+table.updtmemb {
+	padding: 2px;
+	border-spacing: 2px;
+	empty-cells: show;
+}
+table.showmatch {
+	padding: 2px;
+	border-spacing: 2px;
+	empty-cells: show;
+}
+table.league {
+	padding-right: 5px;
+	padding-left: 5px;
+	border-style: solid;
+	border-spacing: 5px;
+	empty-cells: show;
+	border-color: #000000;
+	padding: 4px;
+	border-width: 1px;
+	border: solid;
+}
+table.news {
+	padding: 4px;
+	empty-cells: show;
+	border-spacing: 3px;
+}
