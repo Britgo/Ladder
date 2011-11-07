@@ -95,6 +95,7 @@ function filltab() {
 $hasfoot = true;
 include 'php/nav.php'; ?>
 <h1>British Go Association Ladder</h1>
+<p>Select just for club:
 <form name="selform">
 <select name="clubsel" onchange="filltab();">
 <option selected="selected">(None)</option>
@@ -115,7 +116,7 @@ $n++;
 }
 ?>
 </select>
-</form>
+</form></p>
 <table class="membpick" id="pltab">
 <thead>
 <tr>
