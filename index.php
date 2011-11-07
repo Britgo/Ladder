@@ -96,7 +96,7 @@ $hasfoot = true;
 include 'php/nav.php'; ?>
 <h1>British Go Association Ladder</h1>
 <form name="selform">
-<select name="clubsel" onchange="fillintab();">
+<select name="clubsel" onchange="filltab();">
 <option selected="selected">(None)</option>
 <?php
 $ca = array();
