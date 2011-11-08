@@ -102,17 +102,10 @@ include 'php/nav.php'; ?>
 <?php
 $ca = array();
 foreach ($Clublist as $c) {
-	$ca[$c->display_name()] = 1;
-}
-$ca = array_keys($ca);
-usort($ca, 'strcasecmp');
-$n = 1;
-foreach ($ca as $c) {
 	print <<<EOT
-<option>$c</option>
+<option>{$c->display_name()}</option>
 
 EOT;
-$n++;
 }
 ?>
 </select>

@@ -117,15 +117,30 @@ class Club {
 	}
 }
 
+// List clubs.
+// Where we have 3 and 4 letter variants of the code, prefer the 4 letter version
+
 function listclubs() {
-	$result = array();
-	$ret = mysql_query("select code,name from club order by name");
+	$hadname = array();
+	$ret = mysql_query("select code,name from club");
 	if ($ret) {
 		while ($row = mysql_fetch_assoc($ret)) {
-			$cl = new Club($row["code"]);
-			$cl->Name = $row["name"];
-			array_push($result, $cl);
+			$code = $row["code"];
+			$name = $row["name"];
+			if  (isset($hadname[$name]))  {
+				$prevcode = $hadname[$name];
+				if (strlen($prevcode) >= strlen($code))
+					continue;
+			}
+			$hadname[$name] = $code;
 		}
+	}
+	uksort($hadname, 'strcasecmp');
+	$result = array();
+	foreach ($hadname as $name => $code)  { 
+		$cl = new Club($code);
+		$cl->Name = $name;
+		array_push($result, $cl);
 	}
 	return $result;
 }
