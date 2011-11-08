@@ -1,6 +1,6 @@
 <?php
 
-//   Copyright 2009 John Collins
+//   Copyright 2011 John Collins
 
 //   This program is free software: you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
@@ -18,26 +18,14 @@
 class ParamException extends Exception {}
 
 class Params  {
-	public $Played;
-	public $Won;
-	public $Drawn;
-	public $Lost;
-	public $For;
-	public $Against;
-	public $Hdiv;
-	public $Hreduct;
-	public $Rankfuzz;
+	public $Wont;
+	public $Losst;
+	public $Maxdiff;
 
 	public function __construct() {
-		$this->Played = 0;
-		$this->Won = 100;
-		$this->Drawn = 50;
-		$this->Lost = 0;
-		$this->For = 1;
-		$this->Against = 0;
-		$this->Hdiv = 1000;
-		$this->Hreduct = 0;
-		$this->Rankfuzz = 0;
+		$this->Wont = 3;
+		$this->Losst = 3;
+		$this->Maxdiff = 6;
 	}
 	
 	public function fetchvalues() {
@@ -47,32 +35,14 @@ class Params  {
 		while ($row = mysql_fetch_assoc($ret)) {
 			$v = $row["val"];
 			switch ($row["sc"])  {
-			case 'p':
-				$this->Played = $v;
+			case 'wt':
+				$this->Wont = $v;
 				break;
-			case 'w':
-				$this->Won = $v;
+			case 'lt':
+				$this->Losst = $v;
 				break;
-			case 'd':
-				$this->Drawn = $v;
-				break;
-			case 'l':
-				$this->Lost = $v;
-				break;
-			case 'f':
-				$this->For = $v;
-				break;
-			case 'a':
-				$this->Against = $v;
-				break;
-			case 'hd':
-				$this->Hdiv = $v;
-				break;
-			case 'hr':
-				$this->Hreduct = $v;
-				break;
-			case 'fz':
-				$this->Rankfuzz = $v;
+			case 'md':
+				$this->Maxdiff = $v;
 				break;
 			}
 		}
@@ -81,15 +51,9 @@ class Params  {
 	public function putvalues() {
 		if (!mysql_query("delete from params"))
 			throw new ParamException(mysql_error());
-		mysql_query("insert into params (sc,val) values ('p', $this->Played)");
-		mysql_query("insert into params (sc,val) values ('w', $this->Won)");
-		mysql_query("insert into params (sc,val) values ('d', $this->Drawn)");
-		mysql_query("insert into params (sc,val) values ('l', $this->Lost)");
-		mysql_query("insert into params (sc,val) values ('f', $this->For)");
-		mysql_query("insert into params (sc,val) values ('a', $this->Against)");
-		mysql_query("insert into params (sc,val) values ('hd', $this->Hdiv)");
-		mysql_query("insert into params (sc,val) values ('hr', $this->Hreduct)");
-		mysql_query("insert into params (sc,val) values ('fz', $this->Rankfuzz)");
+		mysql_query("insert into params (sc,val) values ('wt', $this->Wont)");
+		mysql_query("insert into params (sc,val) values ('lt', $this->Losst)");
+		mysql_query("insert into params (sc,val) values ('md', $this->Maxdiff)");
 	}
 }
 ?>

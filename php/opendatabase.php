@@ -42,7 +42,7 @@ print <<<EOT
 <html>
 <head>
 <title>Database error</title>
-<link href="/league/bgaladder-style.css" type="text/css" rel="stylesheet"></link>
+<link href="bgaladder-style.css" type="text/css" rel="stylesheet"></link>
 </head>
 <body>
 <h1>Database Error</h1>

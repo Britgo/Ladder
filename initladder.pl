@@ -18,7 +18,7 @@ if (my @row = $sfh->fetchrow_array) {
 	$onestone = $row[1];
 }
 
-$sfh = $RL_database->prepare("SELECT first,last,rating,club,email FROM player WHERE suppress=0 ORDER BY rating desc,last");
+$sfh = $RL_database->prepare("SELECT first,last,rating,club,email FROM player WHERE suppress=0 AND since >= DATE_SUB(CURRENT_DATE, INTERVAL 2 YEAR) ORDER BY rating desc,last");
 $sfh->execute;
 
 $Lad_database = DBI->connect("DBI:mysql:ladder:britgo.org", "ladder-acc", "bga\@ladder\@pw");

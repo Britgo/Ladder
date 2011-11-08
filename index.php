@@ -37,7 +37,7 @@ var playerlist = new Array();
 foreach ($Playlist as $p) {
 	$p->fetchdets();
 	print <<<EOT
-	playerlist.push({first:"{$p->display_first()}",
+playerlist.push({first:"{$p->display_first()}",
 	last:"{$p->display_last()}", rank:"{$p->display_rank()}",
 	club:"{$p->Club->Name}", wins:{$p->Won}, losses:{$p->Lost}});
 
