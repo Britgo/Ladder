@@ -18,7 +18,6 @@ include 'php/session.php';
 include 'php/checklogged.php';
 include 'php/opendatabase.php';
 include 'php/params.php';
-include 'php/team.php';
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
