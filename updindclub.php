@@ -34,7 +34,7 @@ catch (ClubException $e) {
 <?php
 $Title = "Update Club {$club->display_name()}";
 include 'php/head.php';
-print <<<EOT
+?>
 <body>
 <script language="javascript" src="webfn.js"></script>
 <script language="javascript">
