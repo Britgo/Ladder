@@ -55,11 +55,12 @@ function formvalid()
 <?php
 $showadmmenu = true;
 include 'php/nav.php';
-?>
+print <<<EOT
 <h1>Update Club {$club->display_name()}</h1>
 <p>Please update the details of the club as required using the form below.</p>
 <p>Alternatively <a href="delclub.php?{$club->urlof()}">Click here</a> to remove
 details of the club.</p>
+
 EOT;
 ?>
 <p>You can enter a new club by adjusting the
