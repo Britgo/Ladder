@@ -84,23 +84,6 @@ class Club {
 		return "<input type=\"hidden\" name=\"${prefix}cl\" value=\"$c\">";
 	}
 
-	// Generate selection option for night
-		
-	public function nightopt()
-	{
-		$nights = array("None", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
-		print "<select name=\"night\">\n";
-		for ($i = -1;  $i <= 6; $i++) {
-			if ($i == $this->Night)
-				print "<option value=$i selected>";
-			else
-				print "<option value=$i>";
-			print $nights[$i+1];
-			print "</option>\n";
-		}
-		print "</select>\n";
-	}
-
 	// Create club
 		
 	public function create() {
