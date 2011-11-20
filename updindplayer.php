@@ -22,7 +22,9 @@ include 'php/rank.php';
 include 'php/player.php';
 try {
 	$player = new Player();
-	$player->fromid($userid);
+	$player->fromget();
+	$player->fetchdets();
+	$player->fetchclub();
 }
 catch (PlayerException $e) {
 	$mess = $e->getMessage();
@@ -33,9 +35,9 @@ catch (PlayerException $e) {
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <?php
-$Title = "Update Player Details";
+$Title = "Update Player {$player->display_name()}";
 include 'php/head.php';
-print <<<EOT
+?>
 <body>
 <script language="javascript" src="webfn.js"></script>
 <script language="javascript">
@@ -46,48 +48,64 @@ function formvalid()
          alert("No player name given");
          return false;
       }
+      if  (!nonblank(form.userid.value))  {
+         alert("No userid given");
+         return false;
+      }
 		return true;
 }
 </script>
-
-EOT;
+<?php
+$showadmmenu = true;
 include 'php/nav.php';
 print <<<EOT
-<h1>Update Details userid {$player->display_userid(0)}</h1>
-<p>Please update your details as required using the form below.</p>
+<h1>Update Player {$player->display_name()}</h1>
+<p>Please update the details of the player as required using the form below.</p>
+<p>Alternatively <a href="delplayer.php?{$player->urlof()}">Click here</a> to remove
+details of the player.</p>
+
 EOT;
 ?>
-<p>Please note that email addresses are <b>not</b> published anywhere. The "send email" links are
-all indirect.</p>
+<p>To enter a new player, you can adjust the fields appropriately
+and press the "Add player" button or you can select the "New Player" menu entry on the left.
+</p>
 <?php
 print <<<EOT
-<form name="playform" action="ownupd2.php" method="post" enctype="application/x-www-form-urlencoded" onsubmit="javascript:return formvalid();">
+<form name="playform" action="updindplayer2.php" method="post" enctype="application/x-www-form-urlencoded" onsubmit="javascript:return formvalid();">
 {$player->save_hidden()}
 <table cellpadding="2" cellspacing="5" border="0">
 <tr><td>Player Name</td>
 <td><input type="text" name="playname" value="{$player->display_name()}"></td></tr>
-<tr><td>Club</td>
-<td>
+<tr><td>Club</td><td>
+
 EOT;
 $player->clubopt();
-print <<<EOT
+?>
 </td></tr>
-<tr><td>Rank</td><td>
-EOT;
-$player->rankopt();
-print "</td></tr>\n";
+<tr><td>Rank</td><td><?php $player->rankopt(); ?></td></tr>
+<?php
+// Try to avoid Firefox guessing userid based on the last thing we typed if not there.
+$du = $player->display_userid(0);
 $dp = $player->disp_passwd();
+if (strlen($du) != 0)
+	$du = " value=\"" . $du . "\"";
 if (strlen($dp) != 0)
 	$dp = " value=\"" . $dp . "\"";
 print <<<EOT
+<tr><td>Userid</td><td><input type="text" name="userid"$du></td></tr>
+<tr><td>Password</td><td><input type="password" name="passw"$dp></td></tr>
 <tr><td>Email</td>
 <td><input type="text" name="email" value="{$player->display_email_nolink()}"></td></tr>
-<tr><td>Password</td><td><input type="password" name="passw"$dp></td></tr>
+<tr><td>Admin Privs</td>
+<td>
 
 EOT;
+$player->adminopt();
 ?>
+</td></tr>
+<tr><td><input type="submit" name="subm" value="Add Player"></td>
+<td><input type="submit" name="subm" value="Update Player"></td></tr>
 </table>
-<p><input type="submit" name="subm" value="Update Details"></p>
 </form>
 </div>
 </div>

@@ -198,22 +198,16 @@ class Player  {
 
 	// Display whole name
 		
-	public function display_name($displink = true) {
+	public function display_name() {
 		$f = $this->First;
 		$l = $this->Last;
-		$ret = htmlspecialchars("$f $l");
-		if ($displink)
-				$ret = "<a href=\"playgames.php?{$this->urlof()}\" class=\"name\">$ret</a>";
-		return $ret;
+		return htmlspecialchars("$f $l");
 	}
 	
 	// Display initials
 	
-	public function display_initials($displink = false) {
-		$ret = substr($this->First, 0, 1) . substr($this->Last, 0, 1);
-		if ($displink)
-				$ret = "<a href=\"playgames.php?{$this->urlof()}\" class=\"name\">$ret</a>";
-		return $ret;		
+	public function display_initials() {
+		return  substr($this->First, 0, 1) . substr($this->Last, 0, 1);
 	}
 
 	// Display rank in standard format
@@ -271,14 +265,6 @@ class Player  {
 		mysql_query("update player set password='$qpw' where {$this->queryof()}");
 	}
 	
-	// Display link to send email
-	
-	public function display_email() {
-		if (strlen($this->Email) == 0)
-			return "-";
-		return "<a href=\"sendmail.php?{$this->urlof()}\" target=\"_blank\">Send email</a>";
-	}
-	
 	// Display email address
 	
 	public function display_email_link() {
@@ -334,6 +320,35 @@ class Player  {
 				print "<option>$pa</option>\n";
 		}
 		print "</select>\n";	
+	}
+	
+	public function create() {
+		$qfirst = mysql_real_escape_string($this->First);
+		$qlast = mysql_real_escape_string($this->Last);
+		$qclub = mysql_real_escape_string($this->Club->Code);
+		$quser = mysql_real_escape_string($this->Userid);
+		$qadmin = mysql_real_escape_string($this->Admin);
+		$qemail = mysql_real_escape_string($this->Email);
+		$r = $this->Rank->Rankvalue;
+		// Find a position slot after all players of the same rank
+		$ret = mysql_query("select posn from player where rank>=$r order by rank,posn desc limit 1");
+		if (!$ret || mysql_num_rows($ret) == 0)  {
+			$prev = 0.0;
+		}
+		else  {
+			$row = mysql_fetch_array($ret);
+			$prev = $row[0] + 0.0;
+		}
+		$ret = mysql_query("select posn from player where posn>$prev limit 1");
+		if (!$ret || mysql_num_rows($ret) == 0)  {
+			$next = $prev + 1000.0;
+		}
+		else  {
+			$row = mysql_fetch_array($ret);
+			$next = $row[0] + 0.0;
+		}
+		$posn = ($next + $prev) / 2.0;
+		mysql_query("insert into player (first,last,rank,club,user,email,admin,posn) values ('$qfirst','$qlast',$r,'$qclub','$quser','$qemail','$qadmin',$posn)");
 	}
 	
 	// Update player record of name
