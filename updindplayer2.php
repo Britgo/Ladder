@@ -50,6 +50,7 @@ $email = $_POST["email"];
 $club = $_POST["club"];
 $rank = $_POST["rank"];
 $admin = $_POST["admin"];
+$fuserid = $_POST["userid"];
 $passw = $_POST["passw"];
 
 switch ($action) {
@@ -60,13 +61,13 @@ case 'A':
 	}
 	$player = new Player($playname);
 	checkname($player);
-	checkclash('user', $userid);
+	checkclash('user', $fuserid);
 	$player->Rank = new Rank($rank);
 	$player->Club = new Club($club);
 	$player->Email = $email;
 	// Force Admin priv to N unless Super-admin
 	$player->Admin = $userpriv != 'SA'? $admin: 'N';
-	$player->Userid = $userid;
+	$player->Userid = $fuserid;
 	$player->create();
 	// If no password specified, invent one
 	if (strlen($passw) == 0)
@@ -93,6 +94,10 @@ default:
 	if  (!$origplayer->is_same($newplayer))  {
 		checkname($newplayer);
 		$origplayer->updatename($newplayer);
+	}
+	if ($fuser != $origplayer->Userid) {
+		checkclash('user', $fuserid);
+		$origplayer->Userid = $fuserid;
 	}
 	
 	$origplayer->Rank = new Rank($rank);
