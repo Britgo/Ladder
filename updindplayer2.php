@@ -74,7 +74,7 @@ case 'A':
 		$passw = generate_password();
 	$player->set_passwd($passw);
 	$Title = "Player {$player->display_name()} created OK";
-	newaccemail($email, $userid, $passw);
+	newaccemail($email, $fuserid, $passw);
 	break;
 default:
 	try {
