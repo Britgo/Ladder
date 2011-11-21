@@ -412,7 +412,7 @@ function list_userids() {
 	$result = array();
 	if ($ret) {
 		while ($row = mysql_fetch_array($ret))
-			array_push($result, $row[0]));
+			array_push($result, $row[0]);
 	}
 	return  $result;
 }
