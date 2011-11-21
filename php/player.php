@@ -387,7 +387,7 @@ class Player  {
 	}
 	
 	public function prevposn() {
-		$ret = mysql_query("select posn from player where posn<{$this->Posn}");
+		$ret = mysql_query("select posn from player where posn<{$this->Posn} order by posn desc limit 1");
 		if (!$ret || mysql_num_rows($ret) == 0)
 			return 0.0;
 		$row = mysql_fetch_array($ret);
@@ -405,7 +405,8 @@ class Player  {
 				$promo = true;
 			}
 		}
-		mysql_query("update player set twins={$this->Won},cwins={$this->Cwon} where ($this->queryof()}");
+		if (!mysql_query("update player set twins={$this->Won},cwins={$this->Cwon} where ($this->queryof()}"))
+			throw new PlayerException(mysql_error());
 		return  $promo;
 	}
 	
@@ -420,7 +421,8 @@ class Player  {
 				$demo = true;
 			}
 		}
-		mysql_query("update player set tlosses={$this->Lost},closses={$this->Clost} where ($this->queryof()}");
+		if  (!mysql_query("update player set tlosses={$this->Lost},closses={$this->Clost} where ($this->queryof()}"))
+			throw new PlayerException(mysql_error());
 		return  $demo;
 	}
 
