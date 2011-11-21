@@ -65,11 +65,9 @@ EOT;
 	foreach ($playerlist as $p)  {
 		$ckd = "";
 		if  ($p->is_same($selectedp))
-			$chd = " checked";
+			$ckd = " selected";
 		print <<<EOT
-<option value="{$p->selof()}"$ckd>
-{$p->display_name()} - {$p->Club->display_name()}
-</option>
+<option value="{$p->selof()}"$ckd>{$p->display_name()} - {$p->Club->display_name()}</option>
 
 EOT;
 	}
