@@ -401,7 +401,7 @@ class Player  {
 		if ($this->Cwon >= $Wont)  {
 			$this->Cwon = 0;
 			if ($this->Rank->Rankvalue < 8)  {
-				this->updrank($this->Rank->Rankvalue+1);
+				$this->updrank($this->Rank->Rankvalue+1);
 				$promo = true;
 			}
 		}
@@ -416,7 +416,7 @@ class Player  {
 		if ($this->Clost >= $Losst)  {
 			$this->Clost = 0;
 			if ($this->Rank->Rankvalue > -30)  {
-				this->updrank($this->Rank->Rankvalue-1);
+				$this->updrank($this->Rank->Rankvalue-1);
 				$demo = true;
 			}
 		}
