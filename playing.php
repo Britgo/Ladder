@@ -50,9 +50,13 @@ winning player move down one.</p>
 in November 2011.
 New players are added after the lowest player of the same rank.</p>
 <p>After <?php print $pars->Wont; ?> consecutive wins, a player will be promoted to the next rank up to
-a maximum of 8 Dan regardless of how many movements he or she made up the ladder.</p>
+a maximum of 9 Dan regardless of how many movements he or she made up the ladder.</p>
 <p>After <?php print $pars->Losst; ?> consecutive losses, a player will be demoted to the previous rank down to
 a minimum of 30 Kyu regardless of how many movements he or she made down the ladder.</p>
+<h2>Accounts on the system</h2>
+<p>To enter results on the ladder, please set up an account on the system using the menu item provided. If
+your name is already on the ladder, you will need to just provide the additional details, user name,
+password and email.</p>
 </div>
 </div>
 </body>
