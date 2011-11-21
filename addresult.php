@@ -44,7 +44,7 @@ EOT;
 }
 
 function plsort($a, $b) {
-	$d = strcasecmp($str1, $str2);($a->Club->Name, $b->Club->Name);
+	$d = strcasecmp($a->Club->Name, $b->Club->Name);
 	if ($d != 0)
 		return $d;
 	$d = strcasecmp($a->Last, $b->Last);
