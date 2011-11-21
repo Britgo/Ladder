@@ -91,6 +91,7 @@ password" entry.</p>
 <tr><td>Club (i.e. face-to-face)</td>
 <td>
 <?php
+$player = new Player();
 $player->Club = new Club('NoC');
 $player->clubopt();
 print <<<EOT
