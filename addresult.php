@@ -78,7 +78,6 @@ EOT;
 $playerlist = list_players('last,first,rank desc');
 foreach ($playerlist as $p) {
 	$p->fetchdets();
-	$p->fetchclub();
 }
 usort($playerlist, 'plsort');
 
@@ -124,7 +123,7 @@ please enter them as cumulative wins or losses are used to reset ranks.</p>
 </td>
 <td><?php pselect('pl2', new Player()); ?></td>
 </tr>
-<tr><td colspan=3><input type="submit" value="Enter Result"></td></tr>
+<tr><td colspan="3" align="center"><input type="submit" value="Enter Result"></td></tr>
 </table>
 </form>
 </div>

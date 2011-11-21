@@ -93,7 +93,7 @@ class Player  {
 		$this->Lost = $row['tlosses'];
 		$this->Cwon = $row['cwins'];
 		$this->Clost = $row['closses'];
-		$this->Posn = $row['posn'];
+		$this->Posn = $row['posn'] + 0.0;
 		$this->fetchclub();		
 	}
 
@@ -161,7 +161,7 @@ class Player  {
 		$this->Lost = $row['tlosses'];
 		$this->Cwon = $row['cwins'];
 		$this->Clost = $row['closses'];
-		$this->Posn = $row['posn'];
+		$this->Posn = $row['posn'] + 0.0;
 		$this->fetchclub();		
 	}
 
@@ -379,7 +379,51 @@ class Player  {
 	public function updrank($r) {
 		$this->Rank->Rankvalue = $r;
 		mysql_query("update player set rank=$r where {$this->queryof()}");
-	}	
+	}
+	
+	public function updposn($p) {
+		$this->Posn = $p;
+		mysql_query("update player set posn=$p where {$this->queryof()}");
+	}
+	
+	public function prevposn() {
+		$ret = mysql_query("select posn from player where posn<{$this->Posn}");
+		if (!$ret || mysql_num_rows($ret) == 0)
+			return 0.0;
+		$row = mysql_fetch_array($ret);
+		return $row[0] + 0.0;
+	}
+	
+	public function accwin($Wont) {
+		$promo = false;
+		$this->Won++;
+		$this->Cwon++;
+		if ($this->Cwon >= $Wont)  {
+			$this->Cwon = 0;
+			if ($this->Rank->Rankvalue < 8)  {
+				this->updrank($this->Rank->Rankvalue+1);
+				$promo = true;
+			}
+		}
+		mysql_query("update player set twins={$this->Won},cwins={$this->Cwon} where ($this->queryof()}");
+		return  $promo;
+	}
+	
+	public function accloss($Losst) {
+		$demo = false;
+		$this->Lost++;
+		$this->Clost++;
+		if ($this->Clost >= $Losst)  {
+			$this->Clost = 0;
+			if ($this->Rank->Rankvalue > -30)  {
+				this->updrank($this->Rank->Rankvalue-1);
+				$demo = true;
+			}
+		}
+		mysql_query("update player set tlosses={$this->Lost},closses={$this->Clost} where ($this->queryof()}");
+		return  $demo;
+	}
+
 }
 
 // List all players in specified order
