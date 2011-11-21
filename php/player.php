@@ -407,6 +407,16 @@ function list_admins() {
 	return $result;
 }
 
+function list_userids() {
+	$ret = mysql_query("select user from player where length(user)>0 order by user");
+	$result = array();
+	if ($ret) {
+		while ($row = mysql_fetch_array($ret))
+			array_push($result, $row[0]));
+	}
+	return  $result;
+}
+
 // List of all ranks people are
 
 function list_player_ranks() {
