@@ -48,6 +48,23 @@ catch (PlayerException $e)  {
 EOT;
 	exit(0);
 }
+if ($player1->is_same($player2)) {
+	print <<<EOT
+<html>
+<head>
+<title>Duplicated players</title>
+<link href="/bgaladder-style.css" type="text/css" rel="stylesheet"></link>
+</head>
+<body>
+<h1>Duplicated players</h1>
+<p>Sorry something has gone wrong with your player detail posting. The players are the same.</p>
+<p>Please start again from the top by <a href="index.php">clicking here</a>.</p>
+</body>
+</html>
+
+EOT;
+	exit(0);
+}
 $Params = new Params();
 $Params->fetchvalues();
 $rd = abs($player1->Rank->Rankvalue - $player2->Rank->Rankvalue);

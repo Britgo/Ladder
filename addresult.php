@@ -74,10 +74,15 @@ EOT;
 }
 
 // Sort player list by clubs
+// Find possible other player
+
+$otherplayer = new Player();
 
 $playerlist = list_players('last,first,rank desc');
 foreach ($playerlist as $p) {
 	$p->fetchdets();
+	if ($p->Club->Name == $player->Club->Name && !$p->is_same($player))
+		$otherplayer = $p;
 }
 usort($playerlist, 'plsort');
 
@@ -121,7 +126,7 @@ please enter them as cumulative wins or losses are used to reset ranks.</p>
 <br />
 <input type="radio" name="result" value="l" />Lost to
 </td>
-<td><?php pselect('pl2', new Player()); ?></td>
+<td><?php pselect('pl2', $otherplayer); ?></td>
 </tr>
 <tr><td colspan="3" align="center"><input type="submit" value="Enter Result"></td></tr>
 </table>
