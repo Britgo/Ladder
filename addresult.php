@@ -44,13 +44,13 @@ EOT;
 }
 
 function plsort($a, $b) {
-	$d = strncmp($a->Club->Name, $b->Club->Name);
+	$d = strcasecmp($str1, $str2);($a->Club->Name, $b->Club->Name);
 	if ($d != 0)
 		return $d;
-	$d = strncmp($a->Last, $b->Last);
+	$d = strcasecmp($a->Last, $b->Last);
 	if ($d != 0)
 		return $d;
-	$d = strncmp($a->First, $b->First);
+	$d = strcasecmp($a->First, $b->First);
 	if ($d != 0)
 		return $d;
 	return $b->Rank->Rankvalue - $a->Rank->Rankvalue;
