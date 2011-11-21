@@ -71,9 +71,12 @@ function formvalid()
 <?php include 'php/nav.php'; ?>
 <h1>Apply for new account on ladder</h1>
 <p>Please use the form below to apply for an account on the ladder system.
-You will need an account to record results for yourself or other people.
-</p>
-<p><b>Please</b> don't try to create multiple accounts under different names however
+You will need an account to record results for yourself or other people.</p>
+<p>You can use this form if your name is mentioned on the ladder to give yourself an
+account and password, or you can add yourself to the ladder here.</p>
+<p>If you add yourself to the ladder, you will be put just after the lowest person with the
+same rank as yourself.</p>
+<p><b>Please</b> don't try to create multiple accounts under different or slightly different names however
 bad your playing record is! If you have forgotten your password, select the "remind
 password" entry.</p>
 <p>Please note that email addresses are
