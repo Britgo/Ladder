@@ -405,7 +405,7 @@ class Player  {
 				$promo = true;
 			}
 		}
-		if (!mysql_query("update player set twins={$this->Won},cwins={$this->Cwon} where ($this->queryof()}"))
+		if (!mysql_query("update player set twins={$this->Won},cwins={$this->Cwon} where {$this->queryof()}"))
 			throw new PlayerException(mysql_error());
 		return  $promo;
 	}
@@ -421,7 +421,7 @@ class Player  {
 				$demo = true;
 			}
 		}
-		if  (!mysql_query("update player set tlosses={$this->Lost},closses={$this->Clost} where ($this->queryof()}"))
+		if  (!mysql_query("update player set tlosses={$this->Lost},closses={$this->Clost} where {$this->queryof()}"))
 			throw new PlayerException(mysql_error());
 		return  $demo;
 	}
