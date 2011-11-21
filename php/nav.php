@@ -31,6 +31,7 @@ EOT;
 <img src="images/gohead12.gif" width="133" height="47" alt="BGA Logo" border="0" hspace="0" vspace="0"></a>
 <table>
 <tr><td><a href="index.php">Ladder Home</a></td></tr>
+<tr><td><a href="playing.php">Rules</a></td></tr>
 <?php
 if ($logged_in) {
 	print <<<EOT
