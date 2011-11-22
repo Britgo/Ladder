@@ -101,6 +101,8 @@ if ($rtype == 'w')  {
 		$player1->updposn(($player2->prevposn() + $player2->Posn) / 2.0);
 		$moved = $player1->display_name();
 	}
+	$winpl = $player1;
+	$losepl = $player2; 
 }
 else  {
 	$ppl2 = $player2->accwin($Params->Wont);
@@ -111,7 +113,14 @@ else  {
 		$player2->updposn(($player1->prevposn() + $player1->Posn) / 2.0);
 		$moved = $player2->display_name();
 	}
+	$winpl = $player2;
+	$losepl = $player1;
 }
+$qwfirst = mysql_real_escape_string($winpl->First);
+$qwlast = mysql_real_escape_string($winpl->Last);
+$qlfirst = mysql_real_escape_string($losepl->First);
+$qllast = mysql_real_escape_string($losepl->Last);
+mysql_query("insert into game (wfirst,wlast,lfirst,llast) values ('$qwfirst','$qwlast','$qlfirst','$qllast')");
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
@@ -126,7 +135,7 @@ include 'php/head.php';
 <p>
 Finished adding result for Game between
 <?php
-$winner = $rtype == 'w'? $player1->display_name(): $player2->display_name();
+$winner = $winpl->display_name();
 print <<<EOT
 {$player1->display_name()} and {$player2->display_name()} as a win for $winner.
 

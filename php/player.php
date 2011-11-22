@@ -398,6 +398,7 @@ class Player  {
 		$promo = false;
 		$this->Won++;
 		$this->Cwon++;
+		$this->Clost = 0;
 		if ($this->Cwon >= $Wont)  {
 			$this->Cwon = 0;
 			if ($this->Rank->Rankvalue < 8)  {
@@ -405,7 +406,7 @@ class Player  {
 				$promo = true;
 			}
 		}
-		if (!mysql_query("update player set twins={$this->Won},cwins={$this->Cwon} where {$this->queryof()}"))
+		if (!mysql_query("update player set twins={$this->Won},cwins={$this->Cwon},closses=0 where {$this->queryof()}"))
 			throw new PlayerException(mysql_error());
 		return  $promo;
 	}
@@ -414,6 +415,7 @@ class Player  {
 		$demo = false;
 		$this->Lost++;
 		$this->Clost++;
+		$this->Cwon = 0;
 		if ($this->Clost >= $Losst)  {
 			$this->Clost = 0;
 			if ($this->Rank->Rankvalue > -30)  {
@@ -421,7 +423,7 @@ class Player  {
 				$demo = true;
 			}
 		}
-		if  (!mysql_query("update player set tlosses={$this->Lost},closses={$this->Clost} where {$this->queryof()}"))
+		if  (!mysql_query("update player set tlosses={$this->Lost},closses={$this->Clost},cwins=0 where {$this->queryof()}"))
 			throw new PlayerException(mysql_error());
 		return  $demo;
 	}
