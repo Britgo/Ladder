@@ -78,15 +78,7 @@ setcookie("user_name", $username, time()+60*60*24*60, "/");
 <body onload="onl();">
 <script language="javascript">
 function onl() {
-<?php
-$prev = $_SERVER['HTTP_REFERER'];
-if (strlen($prev) == 0)
-	$prev = 'index.php';
-print <<<EOT
-	document.location = "$prev";
-
-EOT;
-?>
+	document.location = "index.php";
 }
 </script>
 </body>
