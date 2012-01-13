@@ -90,8 +90,8 @@ if ($ret && mysql_num_rows($ret) != 0)  {
 	
 	// If he/she already has a user id it is a mistake to use this
 	
-	$fuserid = $row['user'];
-	if (strlen($fuserid) != 0)  {
+	$guserid = $row['user'];
+	if (strlen($guserid) != 0)  {
 		$column = "name";
 		$value = $player->display_name(false);
 		include 'php/nameclash.php';
