@@ -79,7 +79,7 @@ floatselect("Fractional amount to add to rank if won game but not moving", "ws",
 floatselect("Fractional amount to ADD to rank if lost game and going down", "ld", $pars->Losedown);
 floatselect("Fractional amount to ADD to rank if lost game but not moving", "ls", $pars->Losestay);
 numselect("Number of stones to take off rank difference to get handicap", "hd", $pars->Hcpdiff, 0, 20);
-numselect("Maximum number of places between plaeys in challenges", "mp", $pars->Maxplaces, 1, 200);
+numselect("Maximum number of places between players in challenges", "mp", $pars->Maxplaces, 1, 200);
 ?>
 </table>
 <p><input type="submit" name="Sub" value="Click Here"> when ready.</p>

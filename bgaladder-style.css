@@ -141,7 +141,7 @@ body.il {
     position: absolute;
     top: 0;
     float: left;
-    width: 160px;
+    width: 12%;
     height: 100%;
 }
 #Content {
@@ -149,6 +149,7 @@ body.il {
     top: 0;
     left: 160px;
     height: 100%;
+    width: 87%;
     overflow: auto;
 }
 #Navwf {

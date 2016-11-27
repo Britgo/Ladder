@@ -19,7 +19,7 @@ include 'php/checklogged.php';
 include 'php/opendatabase.php';
 include 'php/params.php';
 $wu = $_POST["wu"];
-if (strlen($md) == 0) {
+if (strlen($wu) == 0) {
     include 'php/wrongentry.php';
     exit(0);
 }
