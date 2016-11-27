@@ -37,7 +37,7 @@ include 'php/nav.php';
 <p>To add a new player either select the "new player" menu entry.</p>
 <table class="plupd">
 <?php
-$playerlist = list_players("last,first,rank desc");
+$playerlist = Player::list_players("last,first,rank desc");
 $countplayers = count($playerlist);
 $rows = floor(($countplayers + 3) / 4);
 for ($row = 0; $row < $rows; $row++) {

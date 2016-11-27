@@ -29,7 +29,7 @@ include 'php/head.php';
 <script language="javascript">
 var idlist = new Array();
 <?php
-$ulist = list_userids();
+$ulist = Player::list_userids();
 foreach ($ulist as $u) {
 	print <<<EOT
 idlist['$u'] = 1;

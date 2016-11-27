@@ -18,16 +18,19 @@ include 'php/session.php';
 include 'php/checklogged.php';
 include 'php/opendatabase.php';
 include 'php/params.php';
-$md = $_POST["md"];
+$wu = $_POST["wu"];
 if (strlen($md) == 0) {
     include 'php/wrongentry.php';
     exit(0);
 }
 $pars = new Params();
 $pars->fetchvalues();
-$pars->Maxdiff = $md + 0;
-$pars->Wont = $_POST["wt"] + 0;
-$pars->Losst = $_POST["lt"] + 0;
+$pars->Wonup = $wu + 0.0;
+$pars->Wonstay = $_POST["ws"] + 0.0;
+$pars->Losedown = $_POST["ld"] + 0.0;
+$pars->Losestay = $_POST["ls"] + 0.0;
+$pars->Hcpdiff = $_POST["hd"] + 0;
+$pars->Maxplaces = $_POST["mp"] + 0;
 $pars->putvalues();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">

@@ -78,7 +78,7 @@ EOT;
 
 $otherplayer = new Player();
 
-$playerlist = list_players('last,first,rank desc');
+$playerlist = Player::list_players('last,first,rank desc');
 foreach ($playerlist as $p) {
 	$p->fetchdets();
 	if ($p->Club->Name == $player->Club->Name && !$p->is_same($player))

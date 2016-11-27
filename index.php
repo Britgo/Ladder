@@ -20,8 +20,8 @@ include 'php/club.php';
 include 'php/rank.php';
 include 'php/player.php';
 
-$Clublist = listclubs();
-$Playlist = list_players();
+$Clublist = Club::listclubs();
+$Playlist = Player::list_players();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>

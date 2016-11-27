@@ -36,7 +36,7 @@ include 'php/nav.php';
 <p>Please select the player to be reminded from the following list.</p>
 <table class="plupd">
 <?php
-$playerlist = list_players();
+$playerlist = Player::list_players();
 $countplayers = count($playerlist);
 $rows = floor(($countplayers + 3) / 4);
 for ($row = 0; $row < $rows; $row++) {

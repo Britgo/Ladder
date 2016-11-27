@@ -43,7 +43,7 @@ while (my @row = $sfh->fetchrow_array)  {
 	$e->execute;
 	$posn += 1000;
  }
- $sfh = $Lad_database->prepare("UPDATE player SET user='jmc',password='Curry',admin='SA',email='jmc\@xisl.com' where first='John' and last='Collins'");
+ $sfh = $Lad_database->prepare("UPDATE player SET user='jmc',password='Curry',admin='SA',email='jmc\@toad.me.uk' where first='John' and last='Collins'");
  $sfh->execute;
  
  

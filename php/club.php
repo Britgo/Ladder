@@ -98,33 +98,33 @@ class Club {
 		$qname = mysql_real_escape_string($this->Name);
 		mysql_query("update club set name='$qname' where {$this->queryof()}");			
 	}
-}
 
-// List clubs.
-// Where we have 3 and 4 letter variants of the code, prefer the 4 letter version
+	// List clubs.
+	// Where we have 3 and 4 letter variants of the code, prefer the 4 letter version
 
-function listclubs() {
-	$hadname = array();
-	$ret = mysql_query("select code,name from club");
-	if ($ret) {
-		while ($row = mysql_fetch_assoc($ret)) {
-			$code = $row["code"];
-			$name = $row["name"];
-			if  (isset($hadname[$name]))  {
-				$prevcode = $hadname[$name];
-				if (strlen($prevcode) >= strlen($code))
-					continue;
+	public static function listclubs() {
+		$hadname = array();
+		$ret = mysql_query("select code,name from club");
+		if ($ret) {
+			while ($row = mysql_fetch_assoc($ret)) {
+				$code = $row["code"];
+				$name = $row["name"];
+				if  (isset($hadname[$name]))  {
+					$prevcode = $hadname[$name];
+					if (strlen($prevcode) >= strlen($code))
+						continue;
+				}
+				$hadname[$name] = $code;
 			}
-			$hadname[$name] = $code;
 		}
+		uksort($hadname, 'strcasecmp');
+		$result = array();
+		foreach ($hadname as $name => $code)  { 
+			$cl = new Club($code);
+			$cl->Name = $name;
+			array_push($result, $cl);
+		}
+		return $result;
 	}
-	uksort($hadname, 'strcasecmp');
-	$result = array();
-	foreach ($hadname as $name => $code)  { 
-		$cl = new Club($code);
-		$cl->Name = $name;
-		array_push($result, $cl);
-	}
-	return $result;
 }
 ?>

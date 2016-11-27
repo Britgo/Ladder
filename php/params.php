@@ -18,14 +18,20 @@
 class ParamException extends Exception {}
 
 class Params  {
-	public $Wont;
-	public $Losst;
-	public $Maxdiff;
+	public $Wonup;				//  Amount to add to rank if winning and going up
+	public $Wonstay;			//  Amount to add to rank if winning but staying
+	public $Losedown;			//  Amount to ADD to rank (possibly -ve) if losing and going down
+	public $Losestay;			//  Amount to ADD to rank (possibly -ve) if losing and staying)
+	public $Hcpdiff;			//  Amount to take off rank difference to get handicap
+	public $Maxplaces;		//  Maximum number of places up the ladder to challenge
 
 	public function __construct() {
-		$this->Wont = 3;
-		$this->Losst = 3;
-		$this->Maxdiff = 6;
+		$this->Wonup = 0.3;
+		$this->Wonstay = 0.1;
+		$this->Losedown = -0.3;
+		$this->Losestay = -0.2;
+		$this->Hcpdiff = 1;
+		$this->Maxplaces = 10;
 	}
 	
 	public function fetchvalues() {
@@ -35,14 +41,23 @@ class Params  {
 		while ($row = mysql_fetch_assoc($ret)) {
 			$v = $row["val"];
 			switch ($row["sc"])  {
-			case 'wt':
-				$this->Wont = $v;
+			case 'wu':
+				$this->Wonup = $v;
 				break;
-			case 'lt':
-				$this->Losst = $v;
+			case 'ws':
+				$this->Wonstay = $v;
 				break;
-			case 'md':
-				$this->Maxdiff = $v;
+			case 'ld':
+				$this->Losedown = $v;
+				break;
+			case 'ls':
+				$this->Losestay = $v;
+				break;
+			case 'hd':
+				$this->Hcpdiff = round($v);
+				break;
+			case 'mp';
+				$this->Maxplaces = round($v);
 				break;
 			}
 		}
@@ -51,9 +66,12 @@ class Params  {
 	public function putvalues() {
 		if (!mysql_query("delete from params"))
 			throw new ParamException(mysql_error());
-		mysql_query("insert into params (sc,val) values ('wt', $this->Wont)");
-		mysql_query("insert into params (sc,val) values ('lt', $this->Losst)");
-		mysql_query("insert into params (sc,val) values ('md', $this->Maxdiff)");
+		mysql_query("insert into params (sc,val) values ('wu', $this->Wonup)");
+		mysql_query("insert into params (sc,val) values ('ws', $this->Wonstay)");
+		mysql_query("insert into params (sc,val) values ('kd', $this->Losedown)");
+		mysql_query("insert into params (sc,val) values ('ls', $this->Losestay)");
+		mysql_query("insert into params (sc,val) values ('hd', $this->Hcpdiff)");
+		mysql_query("insert into params (sc,val) values ('mp', $this->Maxplaces)");
 	}
 }
 ?>

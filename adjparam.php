@@ -34,13 +34,22 @@ include 'php/nav.php';
 <h1>Adjusting parameters</h1>
 <p>
 Use the following form to adjust the parameters used to regulate the ladder.
-Each field may be a number.
+Each field may be a number, in the case of rank adjustments a fractional number, probably negative in the case of loss adjustments.
 </p>
 <p>Please note there is no real check! Only enter sensible values!!!</p>
 <form action="adjparam2.php" method="post" enctype="application/x-www-form-urlencoded" name='pform'>
 <table>
 <tr><th>Function</th><th>Value</th></tr>
 <?php
+function floatselect($descr, $fname, $curr)  {
+	print <<<EOT
+<tr>
+	<td>$descr</td>
+	<td><input type="text" name="$fname" value="$curr" size="10" maxlength="10"></td>
+</tr>
+
+EOT;
+}
 function numselect($descr, $selname, $curr, $min, $max)  {
 	print <<<EOT
 <tr><td>$descr</td>
@@ -65,9 +74,12 @@ EOT;
 }
 $pars = new Params();
 $pars->fetchvalues();
-numselect("Max rank difference to enter ladder", "md", $pars->Maxdiff, 1, 9);
-numselect("Consecutive wins to raise rank", "wt", $pars->Wont, 1, 20);
-numselect("Consecutive losses to lower rank", "lt", $pars->Losst, 1, 20);
+floatselect("Fractional amount to add to rank if won game and going up", "wu", $pars->Wonup);
+floatselect("Fractional amount to add to rank if won game but not moving", "ws", $pars->Wonstay);
+floatselect("Fractional amount to ADD to rank if lost game and going down", "ld", $pars->Losedown);
+floatselect("Fractional amount to ADD to rank if lost game but not moving", "ls", $pars->Losestay);
+numselect("Number of stones to take off rank difference to get handicap", "hd", $pars->Hcpdiff, 0, 20);
+numselect("Maximum number of places between plaeys in challenges", "mp", $pars->Maxplaces, 1, 200);
 ?>
 </table>
 <p><input type="submit" name="Sub" value="Click Here"> when ready.</p>

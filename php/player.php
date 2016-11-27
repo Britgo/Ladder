@@ -20,14 +20,13 @@ class Player  {
 	public $First;
 	public $Last;
 	public $Rank;
+	public $Frank;			// Floating rank
 	public $Club;
 	public $Email;
 	public $Admin;
 	public $Userid;
 	public $Won;
 	public $Lost;
-	public $Cwon;
-	public $Clost;
 	public $Posn;
 
 	// Construct a player object, possibly starting from various
@@ -48,6 +47,7 @@ class Player  {
 			}
 			$Gotrecs = '';
 			$this->Admin = 'N';
+			$this->Frank = 0;
 			$this->Rank = new Rank();
 	}
 
@@ -78,21 +78,20 @@ class Player  {
 	
 	public function fromid($id) {
 		$qid = mysql_real_escape_string($id);
-		$ret = mysql_query("select posn,first,last,rank,club,email,admin,twins,tlosses,cwins,closses from player where user='$qid'");
+		$ret = mysql_query("select posn,first,last,rank,club,email,admin,wins,losses from player where user='$qid'");
 		if (!$ret || mysql_num_rows($ret) == 0)
 			throw new PlayerException("Unknown player userid $id");
 		$row = mysql_fetch_assoc($ret);
 		$this->First = $row['first'];
 		$this->Last = $row['last'];
-		$this->Rank = new Rank($row["rank"]);
+		$this->Frank = $row['rank'] + 0.0;
+		$this->Rank = new Rank(round($this->Frank));
 		$this->Club = new Club($row["club"]);
 		$this->Email = $row["email"];
 		$this->Admin = $row["admin"];
 		$this->Userid = $id;
-		$this->Won = $row['twins'];
-		$this->Lost = $row['tlosses'];
-		$this->Cwon = $row['cwins'];
-		$this->Clost = $row['closses'];
+		$this->Won = $row['wins'];
+		$this->Lost = $row['losses'];
 		$this->Posn = $row['posn'] + 0.0;
 		$this->fetchclub();		
 	}
@@ -146,21 +145,20 @@ class Player  {
 		
 	public function fetchdets() {
 		$q = $this->queryof();
-		$ret = mysql_query("select posn,rank,club,email,admin,user,twins,tlosses,cwins,closses from player where $q");
+		$ret = mysql_query("select posn,rank,club,email,admin,user,wins,losses from player where $q");
 		if (!$ret)
 			throw new PlayerException("Cannot read database for player $q");
 		if (mysql_num_rows($ret) == 0)
 			throw new PlayerException("Cannot find player");
 		$row = mysql_fetch_assoc($ret);
-		$this->Rank = new Rank($row["rank"]);
+		$this->Frank = $row['rank'] + 0.0;
+		$this->Rank = new Rank(round($this->Frank));
 		$this->Club = new Club($row["club"]);
 		$this->Email = $row["email"];
 		$this->Admin = $row["admin"];
 		$this->Userid = $row["user"];
-		$this->Won = $row['twins'];
-		$this->Lost = $row['tlosses'];
-		$this->Cwon = $row['cwins'];
-		$this->Clost = $row['closses'];
+		$this->Won = $row['wins'];
+		$this->Lost = $row['losses'];
 		$this->Posn = $row['posn'] + 0.0;
 		$this->fetchclub();		
 	}
@@ -289,7 +287,7 @@ class Player  {
 	// Display club as a selection
 		
 	public function clubopt() {
-		$clubs = listclubs();
+		$clubs = Club::listclubs();
 		print "<select name=\"club\">\n";
 		foreach ($clubs as $club) {
 			$code = $club->Code;
@@ -373,12 +371,17 @@ class Player  {
 		$qadmin = mysql_real_escape_string($this->Admin);
 		$qemail = mysql_real_escape_string($this->Email);
 		$r = $this->Rank->Rankvalue;
+		if ($r == round($this->Frank))		// Keeping fractional value
+			$r = $this->Frank;
 		mysql_query("update player set club='$qclub',user='$quser',admin='$qadmin',email='$qemail',rank=$r where {$this->queryof()}");
 	}
 
 	public function updrank($r) {
-		$this->Rank->Rankvalue = $r;
-		mysql_query("update player set rank=$r where {$this->queryof()}");
+		$this->Rank->Rankvalue = round($r);
+		$w = $this->Won;
+		$l = $this->Lost;
+		if  (!mysql_query("update player set rank=$r,wins=$w,losses=$l where {$this->queryof()}"))
+			throw new PlayerException(mysql_error());
 	}
 	
 	public function updposn($p) {
@@ -394,88 +397,71 @@ class Player  {
 		return $row[0] + 0.0;
 	}
 	
-	public function accwin($Wont) {
-		$promo = false;
+	public function accwin($pars, $moving = false) {
+		if ($moving)
+			$newrank = $this->Frank + $pars->Wonup;
+		else
+			$newrank = $this->Frank + $pars->Wonstay;
 		$this->Won++;
-		$this->Cwon++;
-		$this->Clost = 0;
-		if ($this->Cwon >= $Wont)  {
-			$this->Cwon = 0;
-			if ($this->Rank->Rankvalue < 8)  {
-				$this->updrank($this->Rank->Rankvalue+1);
-				$promo = true;
-			}
-		}
-		if (!mysql_query("update player set twins={$this->Won},cwins={$this->Cwon},closses=0 where {$this->queryof()}"))
-			throw new PlayerException(mysql_error());
-		return  $promo;
+		$this->updrank($newrank);
 	}
 	
-	public function accloss($Losst) {
-		$demo = false;
+	public function accloss($pars, $moving = false) {
+		if ($moving)
+			$newrank = $this->Frank + $pars->Losedown;
+		else
+			$newrank = $this->Frank + $pars->Losestay;
 		$this->Lost++;
-		$this->Clost++;
-		$this->Cwon = 0;
-		if ($this->Clost >= $Losst)  {
-			$this->Clost = 0;
-			if ($this->Rank->Rankvalue > -30)  {
-				$this->updrank($this->Rank->Rankvalue-1);
-				$demo = true;
+		$this->updrank($newrank);
+	}
+
+	// List all players in specified order
+	// Don't get details for now.
+
+	public static function list_players($order = "posn,last,first,rank desc") {
+		$ret = mysql_query("select first,last from player order by $order");
+		$result = array();
+		if ($ret) {
+			while ($row = mysql_fetch_assoc($ret))
+				array_push($result, new player($row['first'], $row['last']));
+		}
+		return $result;
+	}
+
+	public static function list_admins() {
+		$ret = mysql_query("select first,last from player where admin!='N'");
+		$result = array();
+		if ($ret) {
+			while ($row = mysql_fetch_assoc($ret))
+				array_push($result, new player($row['first'], $row['last']));
+		}
+		foreach ($result as $p)
+			$p->fetchdets();
+		return $result;
+	}
+
+	public static function list_userids() {
+		$ret = mysql_query("select user from player where length(user)>0 order by user");
+		$result = array();
+		if ($ret) {
+			while ($row = mysql_fetch_array($ret))
+				array_push($result, $row[0]);
+		}
+		return  $result;
+	}
+
+	// List of all ranks people are
+
+	public static function list_player_ranks() {
+		$ret = mysql_query("select rank from player group by rank order by rank desc");
+		$result = array();
+		if  ($ret)  {
+			while ($row = mysql_fetch_array($ret)) {
+				array_push($result, $row[0]);
 			}
 		}
-		if  (!mysql_query("update player set tlosses={$this->Lost},closses={$this->Clost},cwins=0 where {$this->queryof()}"))
-			throw new PlayerException(mysql_error());
-		return  $demo;
+		return $result;
 	}
-
-}
-
-// List all players in specified order
-// Don't get details for now.
-
-function list_players($order = "posn,last,first,rank desc") {
-	$ret = mysql_query("select first,last from player order by $order");
-	$result = array();
-	if ($ret) {
-		while ($row = mysql_fetch_assoc($ret))
-			array_push($result, new player($row['first'], $row['last']));
-	}
-	return $result;
-}
-
-function list_admins() {
-	$ret = mysql_query("select first,last from player where admin!='N'");
-	$result = array();
-	if ($ret) {
-		while ($row = mysql_fetch_assoc($ret))
-			array_push($result, new player($row['first'], $row['last']));
-	}
-	foreach ($result as $p)
-		$p->fetchdets();
-	return $result;
-}
-
-function list_userids() {
-	$ret = mysql_query("select user from player where length(user)>0 order by user");
-	$result = array();
-	if ($ret) {
-		while ($row = mysql_fetch_array($ret))
-			array_push($result, $row[0]);
-	}
-	return  $result;
-}
-
-// List of all ranks people are
-
-function list_player_ranks() {
-	$ret = mysql_query("select rank from player group by rank order by rank desc");
-	$result = array();
-	if  ($ret)  {
-		while ($row = mysql_fetch_array($ret)) {
-			array_push($result, $row[0]);
-		}
-	}
-	return $result;
 }
 	
 ?>
