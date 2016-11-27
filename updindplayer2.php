@@ -95,7 +95,7 @@ default:
 		checkname($newplayer);
 		$origplayer->updatename($newplayer);
 	}
-	if ($fuser != $origplayer->Userid) {
+	if ($fuserid != $origplayer->Userid) {
 		checkclash('user', $fuserid);
 		$origplayer->Userid = $fuserid;
 	}
