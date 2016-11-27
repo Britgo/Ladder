@@ -156,7 +156,7 @@ body.il {
 	position: absolute;
    top: 0;
    float: left;
-   width: 87%;
+   width: 12%;
    height: 85%;
 }
 #Contentwf {
@@ -164,6 +164,7 @@ body.il {
    top: 0;
    left: 150px;
    height: 85%;
+   width: 87%;
    overflow: auto;
 }
 #Footer {
