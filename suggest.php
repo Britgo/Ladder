@@ -40,7 +40,7 @@ try  {
 	$minseq = max(1, $mydets->Seq - $Maxplaces);
 	$maxseq = min($mydets->Seq + $Maxplaces, count($Playlist)+1);
 	
-	$valida = array();
+	$valid = array();
 	for ($n = $minseq-1;  $n < $maxseq;  $n++)  {
 		$p = $Playlist[$n];
 		if ($p->is_same($mydets))
