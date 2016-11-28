@@ -18,6 +18,17 @@ include 'php/session.php';
 include 'php/opendatabase.php';
 include 'php/params.php';
 
+function limsg($msg, $adj) {
+	print "<li>If a player $msg, ";
+	if ($adj == 0)
+		print "no adjustment is made to";
+	elseif($adj < 0)
+		printf("%.2f is subtracted from", -$adj);
+	else
+		printf("%.2f is added to", $adj);
+	print " his or her rank.</li>\n";
+}
+
 $pars = new Params();
 $pars->fetchvalues();
 ?>
@@ -31,15 +42,29 @@ include 'php/head.php';
 <script language="javascript" src="webfn.js"></script>
 <?php include 'php/nav.php'; ?>
 <h1>Playing games on the ladder</h1>
-<p>The ladder is mainly intended for over-the-board play although online games are not prohibited.
+<p>The ladder is mainly intended for over-the-board play although there is no reason not to include online games.
 It provides a national ladder for players throughout the country and also provides for individual club
 ladders at the same time, but one flexible enough to take visitors to clubs.</p>
-<p>Any player may challenge a player higher up the ladder, provided that the difference in ranks between
-the players is <?php print $pars->Maxdiff; ?> or less. Note that the player higher up the ladder may
-sometimes be a lower rank.</p>
+<p>Any two players may play at any time, provided that they agree before the game starts that the result is to be entered on the ladder and
+also if they are currently not more than <?php print $pars->Maxplaces; ?> places apart on the ladder.
+Note that the player higher up the ladder may sometimes be a lower rank and take a handicap from the player lower down.</p>
 <p>The game should normally be played with a number of handicap stones equal to the difference in rank
-between the players, the positions on the ladder not being taken into account. AGA rules should be
-used with 7.5 komi for even games and 0.5 komi otherwise and using pass stones.
+between the players
+<?php
+if ($pars->Hcpdiff != 0) {
+	if ($pars->Hcpdiff < 0)
+		print "plus ";
+	else
+		print "less ";
+	print abs($pars->Hcpdiff);
+	print " stone";
+	if (abs($pars->Hcpdiff) > 1)
+		print "s";
+}
+print ",";
+?>
+the positions on the ladder not being taken into account. AGA rules should be
+used with 7.5 komi for even games and 0.5 komi otherwise (or for handicaps of 1) and using pass stones.
 A 40-minute sudden death time limit is recommended but not enforced.</p>
 <p>If the lower-placed (not necessarily lower-ranked) player wins the game, he or she moves up to his or
 her opponent's position and the opponent and all those below down to the original position of the
@@ -47,12 +72,17 @@ winning player move down one.</p>
 <p>If the lower-placed player loses the game, no change is made to the positions.</p>
 <h2>Rank assignment and adjustments</h2>
 <p>The ranks were initialised from the strengths in rating list, rounded to the nearest integer,
-in November 2011.
-New players are added after the lowest player of the same rank.</p>
-<p>After <?php print $pars->Wont; ?> consecutive wins, a player will be promoted to the next rank up to
-a maximum of 9 Dan regardless of how many movements he or she made up the ladder.</p>
-<p>After <?php print $pars->Losst; ?> consecutive losses, a player will be demoted to the previous rank down to
-a minimum of 30 Kyu regardless of how many movements he or she made down the ladder.</p>
+on 27 November 2016. New players are added after the lowest player of the same rank.</p>
+<p>The following fractional adjustments are made to the ranks (although they are displayed rounded to the nearest integer on the ladder).</p>
+<ul>
+<?php
+limsg("wins and moves up", $pars->Wonup);
+limsg("wins but does not move (previously above the opponent)", $pars->Wonstay);
+limsg("loses and goes down", $pars->Losedown);
+limsg("loses but does not move (previously below the opponent)", $pars->Losestay);
+?>
+</ul>
+<p>Players are limited to 9 dan maximum and 30 kyu minimum regardless of their performance.</p>
 <h2>Accounts on the system</h2>
 <p>To enter results on the ladder, please set up an account on the system using the menu item provided. If
 your name is already on the ladder, you will need to just provide the additional details, user name,

@@ -37,7 +37,7 @@ var playerlist = new Array();
 foreach ($Playlist as $p) {
 	$p->fetchdets();
 	print <<<EOT
-playerlist.push({first:"{$p->display_first()}",
+playerlist.push({seq:"{$p->Seq}", first:"{$p->display_first()}",
 	last:"{$p->display_last()}", rank:"{$p->display_rank()}",
 	club:"{$p->Club->Name}", wins:{$p->Won}, losses:{$p->Lost}});
 
@@ -47,18 +47,21 @@ EOT;
 function filloutrow(tbod, pl, i) {
 	var rownode = tbod.insertRow(i);
 	var cellnode = rownode.insertCell(0);
-	var text = document.createTextNode(pl.first + " " + pl.last);
+	var text = document.createTextNode(pl.seq);
 	cellnode.appendChild(text);
 	cellnode = rownode.insertCell(1);
-	text = document.createTextNode(pl.rank);
+	text = document.createTextNode(pl.first + " " + pl.last);
 	cellnode.appendChild(text);
 	cellnode = rownode.insertCell(2);
-	text = document.createTextNode(pl.club);
+	text = document.createTextNode(pl.rank);
 	cellnode.appendChild(text);
 	cellnode = rownode.insertCell(3);
-	text = document.createTextNode(pl.wins);
+	text = document.createTextNode(pl.club);
 	cellnode.appendChild(text);
 	cellnode = rownode.insertCell(4);
+	text = document.createTextNode(pl.wins);
+	cellnode.appendChild(text);
+	cellnode = rownode.insertCell(5);
 	text = document.createTextNode(pl.losses);
 	cellnode.appendChild(text);
 }
@@ -74,16 +77,20 @@ function filltab() {
 	// See if we want the lot or just a club
 	
 	var selfm = document.selform.clubsel;
-	var ind = selfm.selectedIndex;
-	if (ind <= 0)  {
+	if (selfm.selectedIndex <= 0)  {
 		for (i in playerlist)
 			filloutrow(plbod, playerlist[i], i);
 	}
 	else {
-		var cname = selfm.options[ind].value;
+		var i;
+		var ch = new Array();
+		var clopts = selfm.options;
+		for (i = 0;  i < clopts.length;  i++)
+			if (clopts[i].selected)
+				ch[clopts[i].value] = true;
 		var pp = 0;
 		for (i in playerlist) {
-			if (cname == playerlist[i].club)  {
+			if (ch[playerlist[i].club])  {
 				filloutrow(plbod, playerlist[i], pp);
 				pp++;
 			}
@@ -97,7 +104,7 @@ include 'php/nav.php'; ?>
 <h1>British Go Association Ladder</h1>
 <p>Select just for club:
 <form name="selform">
-<select name="clubsel" onchange="filltab();">
+<select name="clubsel" size="5" multiple onchange="filltab();">
 <option selected="selected">(None)</option>
 <?php
 $ca = array();
@@ -113,6 +120,7 @@ EOT;
 <table class="membpick" id="pltab">
 <thead>
 <tr>
+<th>Posn</th>
 <th>Name</th>
 <th>Rank</th>
 <th>Club</th>

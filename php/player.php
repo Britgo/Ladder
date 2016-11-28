@@ -28,11 +28,12 @@ class Player  {
 	public $Won;
 	public $Lost;
 	public $Posn;
+	public $Seq;
 
 	// Construct a player object, possibly starting from various
 	// versions of the name
 		
-	public function __construct($f = "", $l = "") {
+	public function __construct($f = "", $l = "", $s = 0) {
 		if (strlen($f) != 0)  {
 			if (strlen($l) != 0) {
 				$this->First = $f;
@@ -49,6 +50,7 @@ class Player  {
 			$this->Admin = 'N';
 			$this->Frank = 0;
 			$this->Rank = new Rank();
+			$this->Seq = $s;
 	}
 
 	// Fill in the name of the player from a "get" request
@@ -397,11 +399,19 @@ class Player  {
 		return $row[0] + 0.0;
 	}
 	
+	public function checklimrank() {
+		if ($this->Frank > 8.0)
+			$this->Frank = 8.0;
+		elseif ($this->Frank < -30.0)
+			$this->Frank = -30.0;
+	}
+	
 	public function accwin($pars, $moving = false) {
 		if ($moving)
 			$newrank = $this->Frank + $pars->Wonup;
 		else
 			$newrank = $this->Frank + $pars->Wonstay;
+		$this->checklimrank();
 		$this->Won++;
 		$this->updrank($newrank);
 	}
@@ -411,6 +421,7 @@ class Player  {
 			$newrank = $this->Frank + $pars->Losedown;
 		else
 			$newrank = $this->Frank + $pars->Losestay;
+		$this->checklimrank();
 		$this->Lost++;
 		$this->updrank($newrank);
 	}
@@ -422,8 +433,11 @@ class Player  {
 		$ret = mysql_query("select first,last from player order by $order");
 		$result = array();
 		if ($ret) {
-			while ($row = mysql_fetch_assoc($ret))
-				array_push($result, new player($row['first'], $row['last']));
+			$seq = 1;
+			while ($row = mysql_fetch_assoc($ret))  {
+				array_push($result, new player($row['first'], $row['last'], $seq));
+				$seq++;
+			}
 		}
 		return $result;
 	}
