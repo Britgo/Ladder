@@ -127,7 +127,7 @@ if (strlen($moved) != 0)
 
 EOT;
 promodemo($winner, $promo);
-promodemo($losser, $demo);
+promodemo($loser, $demo);
 ?>
 <p>Click <a href="index.php">here</a> to see the ladder now.</p>
 </div>
