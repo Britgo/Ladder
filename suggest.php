@@ -154,6 +154,12 @@ function filltab() {
 			}
 		}
 	}
+	if (plbod.rows.length == 0)  {
+		var rownode = tbod.insertRow(0);
+		var cellnode = rownode.insertCell(1);
+		var text = document.createTextNode("None Suitable");
+		cellnode.appendChild(text);
+	}
 }
 </script>
 <?php
@@ -188,6 +194,7 @@ EOT;
 <tbody id="plbody">
 </tbody>
 </table>
+<p>We suggest you play anyone listed above and then enter the result using the link on the left.</p>
 </div>
 </div>
 </body>
