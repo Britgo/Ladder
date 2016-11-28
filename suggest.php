@@ -156,8 +156,20 @@ function filltab() {
 	}
 	if (plbod.rows.length == 0)  {
 		var rownode = plbod.insertRow(0);
-		var cellnode = rownode.insertCell(1);
-		var text = document.createTextNode("None Suitable");
+		var cellnode = rownode.insertCell(0);
+		var text = document.createTextNode("--");
+		cellnode.appendChild(text);
+		cellnode = rownode.insertCell(1);
+		text = document.createTextNode("None suitable");
+		cellnode.appendChild(text);
+		cellnode = rownode.insertCell(2);
+		text = document.createTextNode("");
+		cellnode.appendChild(text);
+		cellnode = rownode.insertCell(3);
+		text = document.createTextNode("");
+		cellnode.appendChild(text);
+		cellnode = rownode.insertCell(4);
+		text = document.createTextNode("");
 		cellnode.appendChild(text);
 	}
 }
