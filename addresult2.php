@@ -116,9 +116,9 @@ include 'php/head.php';
 <p>
 Finished adding result for Game between
 <?php
-$winner = $winpl->display_name();
+$winname = $winner->display_name();
 print <<<EOT
-{$player1->display_name()} and {$player2->display_name()} as a win for $winner.
+{$player1->display_name()} and {$player2->display_name()} as a win for $winname.
 
 EOT;
 if (strlen($moved) != 0)
