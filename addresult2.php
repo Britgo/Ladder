@@ -25,12 +25,12 @@ include 'php/player.php';
 function promodemo($pl, $diff)
 {
 	if ($diff == 0)
-		reeturn;
+		return;
 	print "<p>{$pl->display_name()} has now been ";
 	if ($diff < 0)
-		print "demoted ($diff)";
+		print "demoted ($diff, {$pl->Rank->Rankvalue}, {$pl->Frank})";
 	else
-		print "promoted ($diff)";
+		print "promoted ($diff, {$pl->Rank->Rankvalue}, {$pl->Frank})";
 	print " to {$pl->display_rank()}.</p>\n";
 }
 
