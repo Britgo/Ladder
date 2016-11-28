@@ -28,9 +28,9 @@ function promodemo($pl, $diff)
 		reeturn;
 	print "<p>{$pl->display_name()} has now been ";
 	if ($diff < 0)
-		print "demoted";
+		print "demoted ($diff)";
 	else
-		print "promoted";
+		print "promoted ($diff)";
 	print " to {$pl->display_rank()}.</p>\n";
 }
 
