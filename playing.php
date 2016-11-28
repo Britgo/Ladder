@@ -61,9 +61,9 @@ if ($pars->Hcpdiff != 0) {
 	if (abs($pars->Hcpdiff) > 1)
 		print "s";
 }
-print ",";
+print ", ";
 ?>
-the positions on the ladder not being taken into account. AGA rules should be
+the positions on the ladder not being taken into account. Remember that 1K is one below 1D. AGA rules should be
 used with 7.5 komi for even games and 0.5 komi otherwise (or for handicaps of 1) and using pass stones.
 A 40-minute sudden death time limit is recommended but not enforced.</p>
 <p>If the lower-placed (not necessarily lower-ranked) player wins the game, he or she moves up to his or
