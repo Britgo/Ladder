@@ -155,7 +155,7 @@ function filltab() {
 		}
 	}
 	if (plbod.rows.length == 0)  {
-		var rownode = tbod.insertRow(0);
+		var rownode = plbod.insertRow(0);
 		var cellnode = rownode.insertCell(1);
 		var text = document.createTextNode("None Suitable");
 		cellnode.appendChild(text);
