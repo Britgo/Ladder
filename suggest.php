@@ -81,11 +81,6 @@ include 'php/head.php';
 <script language="javascript">
 var playerlist = new Array();
 <?php
-$cv = count($valid);
-print <<<EOT
-// $minseq to $maxseq $cv
-
-EOT;
 $myrank = $mydets->Rank->Rankvalue;
 foreach ($valid as $p) {
 	$hisrank = $p->Rank->Rankvalue;
@@ -96,7 +91,7 @@ foreach ($valid as $p) {
 		if ($myrank < $hisrank)
 			$game = "Black";
 		else
-			$game == "White";
+			$game = "White";
 		if ($stones == 1)
 			$game .= " No Komi";
 		else
