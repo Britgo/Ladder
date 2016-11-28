@@ -37,8 +37,8 @@ try  {
 	}
 	if ($mydets->Seq <= 0)
 		throw new PlayException("Sequence not found");
-	$minseq = max(1, $mydets->Seq - $Maxplaces);
-	$maxseq = min($mydets->Seq + $Maxplaces, count($Playlist)+1);
+	$minseq = max(1, $mydets->Seq - $Pars->Maxplaces);
+	$maxseq = min($mydets->Seq + $Pars->Maxplaces, count($Playlist)+1);
 	
 	$valid = array();
 	for ($n = $minseq-1;  $n < $maxseq;  $n++)  {
@@ -81,6 +81,11 @@ include 'php/head.php';
 <script language="javascript">
 var playerlist = new Array();
 <?php
+$cv = count($valid);
+print <<<EOT
+// $minseq to $maxseq $cv
+
+EOT;
 $myrank = $mydets->Rank->Rankvalue;
 foreach ($valid as $p) {
 	$hisrank = $p->Rank->Rankvalue;
