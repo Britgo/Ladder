@@ -22,6 +22,18 @@ include 'php/club.php';
 include 'php/rank.php';
 include 'php/player.php';
 
+function promodemo($pl, $diff)
+{
+	if ($diff == 0)
+		reeturn;
+	print "<p>{$pl->display_name()} has now been ";
+	if ($diff < 0)
+		print "demoted";
+	else
+		print "promoted";
+	print " to {$pl->display_rank()}.</p>\n";
+}
+
 $player1 = new Player();
 $player2 = new Player();
 
@@ -67,60 +79,29 @@ EOT;
 }
 $Params = new Params();
 $Params->fetchvalues();
-$rd = abs($player1->Rank->Rankvalue - $player2->Rank->Rankvalue);
-
-if ($rd > $Params->Maxdiff)  {
-	print <<<EOT
-<html>
-<head>
-<title>Too big a rank difference</title>
-<link href="/bgaladder-style.css" type="text/css" rel="stylesheet"></link>
-</head>
-<body>
-<h1>Too big a rank difference</h1>
-<p>Sorry but we cannot record this game as the rank difference is too great.</p>
-<p>{$player1->display_name()} has a rank of {$player1->display_rank()} whilst
-{$player2->display_name()} has a rank of {$player2->display_rank()} and the maximum difference
-is {$Params->Maxdiff}.</p>
-<p>Please start again from the top by <a href="index.php">clicking here</a>.</p>
-</body>
-</html>
-
-EOT;
-	exit(0);
-}	
 
 $rtype = $_POST["result"];
-$moved = "";
-if ($rtype == 'w')  {
-	$ppl1 = $player1->accwin($Params->Wont);
-	$dpl1 = false;
-	$ppl2 = false;
-	$dpl2 = $player2->accloss($Params->Losst);
-	if ($player1->Posn > $player2->Posn)  {
-		$player1->updposn(($player2->prevposn() + $player2->Posn) / 2.0);
-		$moved = $player1->display_name();
-	}
-	$winpl = $player1;
-	$losepl = $player2; 
+
+if  ($rtype == 'w')  {
+	$winner = $player1;
+	$loser = $player2;
 }
 else  {
-	$ppl2 = $player2->accwin($Params->Wont);
-	$dpl2 = false;
-	$ppl1 = false;
-	$dpl1 = $player1->accloss($Params->Losst);
-	if ($player2->Posn > $player1->Posn)  {
-		$player2->updposn(($player1->prevposn() + $player1->Posn) / 2.0);
-		$moved = $player2->display_name();
-	}
-	$winpl = $player2;
-	$losepl = $player1;
+	$winner = $player2;
+	$loser = $player1;
 }
-$qwfirst = mysql_real_escape_string($winpl->First);
-$qwlast = mysql_real_escape_string($winpl->Last);
-$qlfirst = mysql_real_escape_string($losepl->First);
-$qllast = mysql_real_escape_string($losepl->Last);
-mysql_query("insert into game (wfirst,wlast,lfirst,llast) values ('$qwfirst','$qwlast','$qlfirst','$qllast')");
+
+if ($winner->Posn > $loser->Posn)  {
+	$moved = $winner->display_name();
+	$promo = $winner->accwin($Params, true);
+	$demo = $loser->accloss($Params, true);
+	$winner->updposn(($loser->prevposn() + $loser->Posn) / 2.0);
+}
+else  {
+	$moved = "";
+	$promo = $winner->accwin($Params, false);
+	$demo = $loser->accloss($Params, false);
+}
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
@@ -145,27 +126,8 @@ if (strlen($moved) != 0)
 <p>$moved has been moved up the ladder.</p>
 
 EOT;
-if ($ppl1)
-	print <<<EOT
-<p>{$player1->display_name()} has been promoted to {$player1->display_rank()}.</p>
-
-EOT;
-if ($ppl2)
-	print <<<EOT
-<p>{$player2->display_name()} has been promoted to {$player2->display_rank()}.</p>
-
-EOT;
-if ($dpl1)
-	print <<<EOT
-<p>{$player1->display_name()} has been demoted to {$player1->display_rank()}.</p>
-
-EOT;
-if ($dpl2)
-	print <<<EOT
-<p>{$player2->display_name()} has been demoted to {$player2->display_rank()}.</p>
-
-EOT;
-
+promodemo($winner, $promo);
+promodemo($losser, $demo);
 ?>
 <p>Click <a href="index.php">here</a> to see the ladder now.</p>
 </div>

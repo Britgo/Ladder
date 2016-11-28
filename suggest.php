@@ -1,5 +1,5 @@
 <?php
-//   Copyright 2011 John Collins
+//   Copyright 2016 John Collins
 
 //   This program is free software: you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
@@ -15,18 +15,65 @@
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 include 'php/session.php';
+include 'php/checklogged.php';
 include 'php/opendatabase.php';
 include 'php/club.php';
 include 'php/rank.php';
 include 'php/player.php';
+include 'php/params.php';
+
+$Pars = new Params();
+$Pars->fetchvalues();
+
+try  {
+	$mydets = new Player();
+	$mydets->fromid($userid);
+	$Playlist = Player::list_players();
+	foreach ($Playlist as $p) {
+		if ($p->is_same($mydets))  {
+			$mydets->Seq = $p->Seq;
+			break;
+		}
+	}
+	if ($mydets->Seq <= 0)
+		throw new PlayException("Sequence not found");
+	$minseq = max(1, $mydets->Seq - $Maxplaces);
+	$maxseq = min($mydets->Seq + $Maxplaces, count($Playlist)+1);
+	
+	$valida = array();
+	for ($n = $minseq-1;  $n < $maxseq;  $n++)  {
+		$p = $Playlist[$n];
+		if ($p->is_same($mydets))
+			continue;
+		$p->fetchdets();
+		array_push($valid, $p);
+	}
+}
+catch (PlayerException $e) {
+	print <<<EOT
+<html>
+<head>
+<title>Unknown player</title>
+<link href="bgaladder-style.css" type="text/css" rel="stylesheet"></link>
+</head>
+<body>
+<h1>Unknown player</h1>
+<p>Sorry, but player name $userid is not known.</p>
+<p>Please start again from the top by <a href="index.php">clicking here</a>.</p>
+</body>
+</html>
+
+EOT;
+	exit(0);
+}
 
 $Clublist = Club::listclubs();
-$Playlist = Player::list_players();
+
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <?php
-$Title = "British Go Association Ladder";
+$Title = "Suggested opponents";
 include 'php/head.php';
 ?>
 <body onload="javascript:filltab()">
@@ -34,12 +81,26 @@ include 'php/head.php';
 <script language="javascript">
 var playerlist = new Array();
 <?php
-foreach ($Playlist as $p) {
-	$p->fetchdets();
+$myrank = $mydets->Rank->Rankvalue;
+foreach ($valid as $p) {
+	$hisrank = $p->Rank->Rankvalue;
+	$stones = max(0, abs($myrank - $hisrank) - $Pars->Hcpdiff);
+	if ($stones == 0)
+		$game = "Nigiri 7.5 Komi";
+	else  {
+		if ($myrank < $hisrank)
+			$game = "Black";
+		else
+			$game == "White";
+		if ($stones == 1)
+			$game .= " No Komi";
+		else
+			$game .= " $stones stones";
+	}
 	print <<<EOT
 playerlist.push({seq:"{$p->Seq}", first:"{$p->display_first()}",
 	last:"{$p->display_last()}", rank:"{$p->display_rank()}",
-	club:"{$p->Club->Name}", wins:{$p->Won}, losses:{$p->Lost}});
+	club:"{$p->Club->Name}", game: "$game"});
 
 EOT;
 }
@@ -59,10 +120,7 @@ function filloutrow(tbod, pl, i) {
 	text = document.createTextNode(pl.club);
 	cellnode.appendChild(text);
 	cellnode = rownode.insertCell(4);
-	text = document.createTextNode(pl.wins);
-	cellnode.appendChild(text);
-	cellnode = rownode.insertCell(5);
-	text = document.createTextNode(pl.losses);
+	text = document.createTextNode(pl.game);
 	cellnode.appendChild(text);
 }
 
@@ -99,9 +157,9 @@ function filltab() {
 }
 </script>
 <?php
-$hasfoot = true;
+$hasfoot = false;
 include 'php/nav.php'; ?>
-<h1>British Go Association Ladder</h1>
+<h1>Suggested opponents</h1>
 <p>Select just for club (hold down Ctrl key and click to select more than one club):
 <form name="selform">
 <select name="clubsel" size="5" multiple onchange="filltab();">
@@ -124,30 +182,12 @@ EOT;
 <th>Name</th>
 <th>Rank</th>
 <th>Club</th>
-<th>Wins</th>
-<th>Losses</th>
+<th>Game Type</th>
 </tr>
 </thead>
 <tbody id="plbody">
 </tbody>
 </table>
-</div>
-</div>
-<div id="Footer">
-<div class="innertube">
-<hr>
-<p class="note">
-This website was designed, authored and programmed by
-<a href="http://www.john.collins.name" target="_blank">John Collins</a>.
-</p>
-<?php
-$dat = date("Y");
-print <<<EOT
-<p class="note">Copyright &copy; John Collins 2009-$dat. Licensed under
-
-EOT;
-?>
-<a href="http://www.gnu.org/licenses/">GPL v3</a>.</p>
 </div>
 </div>
 </body>

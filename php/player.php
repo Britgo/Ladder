@@ -407,6 +407,7 @@ class Player  {
 	}
 	
 	public function accwin($pars, $moving = false) {
+		$origrank = $this->Rank->Rankvalue;
 		if ($moving)
 			$newrank = $this->Frank + $pars->Wonup;
 		else
@@ -414,9 +415,11 @@ class Player  {
 		$this->checklimrank();
 		$this->Won++;
 		$this->updrank($newrank);
+		return $this->Rank->Rankvalue - $origrank;
 	}
 	
 	public function accloss($pars, $moving = false) {
+		$origrank = $this->Rank->Rankvalue;
 		if ($moving)
 			$newrank = $this->Frank + $pars->Losedown;
 		else
@@ -424,6 +427,7 @@ class Player  {
 		$this->checklimrank();
 		$this->Lost++;
 		$this->updrank($newrank);
+		return $this->Rank->Rankvalue - $origrank;
 	}
 
 	// List all players in specified order

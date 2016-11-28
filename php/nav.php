@@ -35,6 +35,7 @@ EOT;
 <?php
 if ($logged_in) {
 	print <<<EOT
+<tr><td><a href="suggest.php" class="il">Suggest game</a></td></tr>
 <tr><td><a href="addresult.php" class="il">Add Result</a></td></tr>
 
 EOT;

@@ -53,7 +53,7 @@ function plsort($a, $b) {
 	$d = strcasecmp($a->First, $b->First);
 	if ($d != 0)
 		return $d;
-	return $b->Rank->Rankvalue - $a->Rank->Rankvalue;
+	return $b->Frank - $a->Frank;
 }
 
 function pselect($fname, $selectedp)  {
