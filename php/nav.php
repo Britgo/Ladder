@@ -52,6 +52,7 @@ EOT;
 <tr><td class="subind"><a href="playupd.php" class="memb">Update players</a></td></tr>
 <tr><td class="subind"><a href="rempw.php" class="memb">Remind password</a></td></tr>
 <tr><td class="subind"><a href="adjparam.php" class="memb">Adjust parameters</a></td></tr>
+<tr><td class="subind"><a href="purge.php" class="memb">Remove inactive players</a></td></tr>
 EOT;
 		}
 	}

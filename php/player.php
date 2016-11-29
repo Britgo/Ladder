@@ -380,9 +380,10 @@ class Player  {
 
 	public function updrank($r) {
 		$this->Rank->Rankvalue = round($r);
+		$this->Frank = $r;
 		$w = $this->Won;
 		$l = $this->Lost;
-		if  (!mysql_query("update player set rank=$r,wins=$w,losses=$l where {$this->queryof()}"))
+		if  (!mysql_query("update player set rank=$r,wins=$w,losses=$l,lastgame=now() where {$this->queryof()}"))
 			throw new PlayerException(mysql_error());
 	}
 	
