@@ -27,7 +27,7 @@ if (strlen($nint) == 0) {
     exit(0);
 }
 $intname = $_POST['interval'];
-$ret = mysql_query("DELETE FROM player WHERE lastgame<DATE_SUB(NOW(),INTERVAL $nint $intname)");
+$ret = mysql_query("DELETE FROM player WHERE lastgame<DATE_SUB(NOW(),INTERVAL $nint $intname) AND admin='N'");
 if (!$ret)  {
 	$mess = mysql_error();
 	print <<<EOT
