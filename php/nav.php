@@ -81,7 +81,7 @@ if (!$logged_in)  {
 EOT;
 }
 print <<<EOT
-<p>Comments/queries <a href="https://message.britgo.org?mailing=ladder-admin" target="_blank">here please</a>.</p>
+<p>Comments/queries<br/><a href="https://message.britgo.org?mailing=ladder-admin" target="_blank">here please</a>.</p>
 </div>
 </div>
 <div id="$contentid">
