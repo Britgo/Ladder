@@ -3,7 +3,9 @@ e2c.convert_num: 0
 openfiles: /home/jmc/src/Websites/goladder/newacct.php:0:1415:0:
 openfiles: /home/jmc/src/Websites/goladder/newacct2.php:0:1661:0:
 openfiles: /home/jmc/src/Websites/goladder/index.php:2669:2265:0:
-openfiles: /home/jmc/src/Websites/goladder/php/nav.php:2911:1139:1:
+openfiles: /home/jmc/src/Websites/goladder/php/nav.php:2054:1145:0:
+openfiles: /home/jmc/src/Websites/goladder/bgaladder-style.css:0:1512:0:
+openfiles: /home/jmc/src/Websites/goladder/purge2.php:1106:301:1:
 snr_recursion_level: 5
 convertcolumn_horizontally: 0
 adv_open_matchname: 0
@@ -16,7 +18,7 @@ view_left_panel: 1
 bookmarks_filename_mode: 0
 e2c.convert_xml: 1
 c2e.convert_iso: 0
-opendir: file:///home/jmc/src/Websites/goladder/php
+opendir: file:///home/jmc/src/Websites/goladder
 wrap_text_default: 0
 default_mime_type: application/x-php
 ssearch_text: fuser
@@ -49,7 +51,6 @@ recent_files: file:///home/jmc/src/Websites/goladder/rempw.php
 recent_files: file:///home/jmc/src/Websites/goladder/updindplayer2.php
 recent_files: file:///home/jmc/src/Websites/goladder/adjparam.php
 recent_files: file:///home/jmc/src/Websites/goladder/adjparam2.php
-recent_files: file:///home/jmc/src/Websites/goladder/bgaladder-style.css
 recent_files: file:///home/jmc/src/Websites/goleague/bgaleague-style.css
 recent_files: file:///home/jmc/src/Websites/goladder/playing.php
 recent_files: file:///home/jmc/src/Websites/goladder/php/params.php
@@ -59,11 +60,12 @@ recent_files: file:///home/jmc/src/Websites/goladder/addresult2.php
 recent_files: file:///home/jmc/src/Websites/goladder/php/checklogged.php
 recent_files: file:///home/jmc/src/Websites/goladder/php/session.php
 recent_files: file:///home/jmc/src/Websites/goladder/purge.php
-recent_files: file:///home/jmc/src/Websites/goladder/purge2.php
 recent_files: file:///home/jmc/src/Websites/goladder/newacct.php
 recent_files: file:///home/jmc/src/Websites/goladder/newacct2.php
 recent_files: file:///home/jmc/src/Websites/goladder/index.php
 recent_files: file:///home/jmc/src/Websites/goladder/php/nav.php
+recent_files: file:///home/jmc/src/Websites/goladder/bgaladder-style.css
+recent_files: file:///home/jmc/src/Websites/goladder/purge2.php
 snr_replacetype: 0
 savedir: file:///home/jmc/src/Websites/goladder
 spell_check_default: 1
@@ -100,8 +102,8 @@ e2c.convert_special: 0
 autoindent: 1
 adv_open_recursive: 0
 recent_dirs: file:///home/jmc/src/Websites/goleague
-recent_dirs: file:///home/jmc/src/Websites/goladder
 recent_dirs: file:///home/jmc/src/Websites/goladder/php
+recent_dirs: file:///home/jmc/src/Websites/goladder
 filegloblist: *.txt
 filegloblist: *.shtml
 filegloblist: *.py
