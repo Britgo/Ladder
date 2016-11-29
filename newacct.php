@@ -85,7 +85,7 @@ password" entry.</p>
 <table cellpadding="2" cellspacing="5" border="0">
 <tr><td>Player Name</td>
 <td><input type="text" name="playname"></td></tr>
-<tr><td>League Userid (initials/KGS name acceptable)</td>
+<tr><td>Ladder Userid (initials/KGS name acceptable)</td>
 <td><input type="text" name="userid"></td></tr>
 <tr><td>Password (leave blank to let system set it)</td>
 <td><input type="password" name="passw"></td></tr>
