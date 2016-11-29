@@ -69,7 +69,7 @@ $showadmmenu = true;
 include 'php/nav.php';
 ?>
 <h1>Purge of inactive players complete</h1>
-<p>Finished adjusting parameters.
+<p>Finished checking for inactive players.
 <?php
 if ($naff == 0)
 	print "However no players were removed.\n";

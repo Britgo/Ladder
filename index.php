@@ -61,9 +61,11 @@ function filloutrow(tbod, pl, i) {
 	cellnode = rownode.insertCell(4);
 	text = document.createTextNode(pl.wins);
 	cellnode.appendChild(text);
+	cellnode.style.textAlign = 'right';
 	cellnode = rownode.insertCell(5);
 	text = document.createTextNode(pl.losses);
 	cellnode.appendChild(text);
+	cellnode.style.textAlign = 'right';
 }
 
 function filltab() {
