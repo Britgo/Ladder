@@ -1,11 +1,13 @@
 c2e.convert_special: 0
 e2c.convert_num: 0
-openfiles: /home/jmc/src/Websites/goladder/newacct.php:0:1415:0:
+openfiles: /home/jmc/src/Websites/goladder/newacct.php:3494:1910:1:
 openfiles: /home/jmc/src/Websites/goladder/newacct2.php:0:1661:0:
 openfiles: /home/jmc/src/Websites/goladder/index.php:2669:2265:0:
 openfiles: /home/jmc/src/Websites/goladder/php/nav.php:2054:1145:0:
 openfiles: /home/jmc/src/Websites/goladder/bgaladder-style.css:0:1512:0:
-openfiles: /home/jmc/src/Websites/goladder/purge2.php:1106:301:1:
+openfiles: /home/jmc/src/Websites/goladder/purge2.php:1106:301:0:
+openfiles: /home/jmc/src/Websites/goladder/rempwbyuid.php:946:505:0:
+openfiles: /home/jmc/src/Websites/goladder/php/opendatabase.php:1790:302:0:
 snr_recursion_level: 5
 convertcolumn_horizontally: 0
 adv_open_matchname: 0
@@ -21,7 +23,7 @@ c2e.convert_iso: 0
 opendir: file:///home/jmc/src/Websites/goladder
 wrap_text_default: 0
 default_mime_type: application/x-php
-ssearch_text: fuser
+ssearch_text: jmc
 snr_casesens: 0
 view_blocks: 1
 name: bgaladder
@@ -42,7 +44,6 @@ charmap_block: 1
 recent_files: file:///home/jmc/src/eclipsews/GoRatingList/rating_list_gen.pl
 recent_files: file:///home/jmc/src/Websites/goladder/delplayer.php
 recent_files: file:///home/jmc/src/Websites/goladder/php/rank.php
-recent_files: file:///home/jmc/src/Websites/goladder/php/opendatabase.php
 recent_files: file:///home/jmc/src/Websites/goladder/php/club.php
 recent_files: file:///home/jmc/src/Websites/goladder/admin.php
 recent_files: file:///home/jmc/src/Websites/goladder/initladder.pl
@@ -60,12 +61,14 @@ recent_files: file:///home/jmc/src/Websites/goladder/addresult2.php
 recent_files: file:///home/jmc/src/Websites/goladder/php/checklogged.php
 recent_files: file:///home/jmc/src/Websites/goladder/php/session.php
 recent_files: file:///home/jmc/src/Websites/goladder/purge.php
+recent_files: file:///home/jmc/src/Websites/goladder/purge2.php
 recent_files: file:///home/jmc/src/Websites/goladder/newacct.php
 recent_files: file:///home/jmc/src/Websites/goladder/newacct2.php
 recent_files: file:///home/jmc/src/Websites/goladder/index.php
-recent_files: file:///home/jmc/src/Websites/goladder/php/nav.php
 recent_files: file:///home/jmc/src/Websites/goladder/bgaladder-style.css
-recent_files: file:///home/jmc/src/Websites/goladder/purge2.php
+recent_files: file:///home/jmc/src/Websites/goladder/php/nav.php
+recent_files: file:///home/jmc/src/Websites/goladder/rempwbyuid.php
+recent_files: file:///home/jmc/src/Websites/goladder/php/opendatabase.php
 snr_replacetype: 0
 savedir: file:///home/jmc/src/Websites/goladder
 spell_check_default: 1
@@ -78,7 +81,6 @@ fb_viewmode: 2
 c2e.convert_symbol: 0
 spell_lang: en
 ssearch_dotmatchall: 0
-searchlist: posn
 searchlist: selof
 searchlist: userid
 searchlist: create
@@ -93,6 +95,7 @@ searchlist: updrank
 searchlist: list_user
 searchlist: listclub
 searchlist: fuser
+searchlist: jmc
 autocomplete: 1
 outputb_show_all_output: 0
 bookmarks_show_mode: 0

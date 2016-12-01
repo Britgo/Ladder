@@ -29,6 +29,13 @@ EOT;
 <div class="innertube">
 <a href="http://www.britgo.org">
 <img src="images/gohead12.gif" width="133" height="47" alt="BGA Logo" border="0" hspace="0" vspace="0"></a>
+<?php
+if (!isset($_SERVER['HTTPS']) || strlen($_SERVER['HTTPS']) == 0)
+        print <<<EOF
+<p><span class="alarm">Use HTTPS!!</span></p>
+
+EOF;
+?>
 <table>
 <tr><td><a href="index.php">Ladder Home</a></td></tr>
 <tr><td><a href="playing.php">Rules</a></td></tr>
