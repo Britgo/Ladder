@@ -45,10 +45,13 @@ include 'php/head.php';
 <p>The ladder is mainly intended for over-the-board play although there is no reason not to include online games.
 It provides a national ladder for players throughout the country and also provides for individual club
 ladders at the same time, but one flexible enough to take visitors to clubs.</p>
-<p>Any two players may play at any time, provided that they agree before the game starts that the result is to be entered on the ladder and
-also if they are currently not more than <?php print $pars->Maxplaces; ?> places apart on the ladder.
+<h2>Who can play</h2>
+<p>Any two players may play at any time, either online or offline.
+They should normally agree before the game starts that the result is to be entered on the ladder.
+No restriction is enforced as to who can play whom, however if asked for a recommendation, players
+currently not more than <?php print $pars->Maxplaces; ?> places apart on the ladder are proposed with appropriate handicaps.
 Note that the player higher up the ladder may sometimes be a lower rank and take a handicap from the player lower down.</p>
-<p>The game should normally be played with a number of handicap stones equal to the difference in rank
+<p>The game should normally be played with a number of handicap stones equal to the difference in rank (as displayed on the ladder)
 between the players
 <?php
 if ($pars->Hcpdiff != 0) {
@@ -72,7 +75,8 @@ winning player move down one.</p>
 <p>If the lower-placed player loses the game, no change is made to the positions.</p>
 <h2>Rank assignment and adjustments</h2>
 <p>The ranks were initialised from the strengths in rating list, rounded to the nearest integer,
-on 27 November 2016. New players are added after the lowest player of the same rank.</p>
+on 27 November 2016, however rank adjustments may well make these ranks diverge from the rating list.
+New players are added after the lowest player of the same rank.</p>
 <p>The following fractional adjustments are made to the ranks (although they are displayed rounded to the nearest integer on the ladder).</p>
 <ul>
 <?php
@@ -84,9 +88,9 @@ limsg("loses but does not move (previously below the opponent)", $pars->Losestay
 </ul>
 <p>Players are limited to 9 dan maximum and 30 kyu minimum regardless of their performance.</p>
 <h2>Accounts on the system</h2>
-<p>To enter results on the ladder, please set up an account on the system using the menu item provided. If
-your name is already on the ladder, you will need to just provide the additional details, user name,
-password and email.</p>
+<p>To enter results on the ladder, please set up an account on the system using the menu item provided. The other player does not have to have an account
+on the system. If your name is already on the ladder, you will need to just provide the additional details, user name,
+password and email. Players on the ladder who have not got an account have their names rendered in italics.</p>
 </div>
 </div>
 </body>

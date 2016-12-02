@@ -39,7 +39,7 @@ foreach ($Playlist as $p) {
 	print <<<EOT
 playerlist.push({seq:"{$p->Seq}", first:"{$p->display_first()}",
 	last:"{$p->display_last()}", rank:"{$p->display_rank()}",
-	club:"{$p->Club->Name}", wins:{$p->Won}, losses:{$p->Lost}});
+	club:"{$p->Club->Name}", userid:"{$p->Userid}", wins:{$p->Won}, losses:{$p->Lost}});
 
 EOT;
 }
@@ -52,6 +52,8 @@ function filloutrow(tbod, pl, i) {
 	cellnode = rownode.insertCell(1);
 	text = document.createTextNode(pl.first + " " + pl.last);
 	cellnode.appendChild(text);
+	if (pl.userid.length == 0)
+		cellnode.style.fontStyle = "italic";
 	cellnode = rownode.insertCell(2);
 	text = document.createTextNode(pl.rank);
 	cellnode.appendChild(text);
