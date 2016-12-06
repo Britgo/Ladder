@@ -147,7 +147,7 @@ body.il {
 #Content {
     position: fixed;
     top: 0;
-    left: 160px;
+    left: 12%;
     height: 100%;
     width: 80%;
     overflow: auto;
@@ -162,7 +162,7 @@ body.il {
 #Contentwf {
    position: fixed;
    top: 0;
-   left: 150px;
+   left: 12%;
    height: 85%;
    width: 80%;
    overflow: auto;
