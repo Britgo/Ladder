@@ -38,7 +38,7 @@ try  {
 	if ($mydets->Seq <= 0)
 		throw new PlayException("Sequence not found");
 	$minseq = max(1, $mydets->Seq - $Pars->Maxplaces);
-	$maxseq = min($mydets->Seq + $Pars->Maxplaces, count($Playlist)+1);
+	$maxseq = min($mydets->Seq + $Pars->Maxplaces+1, count($Playlist));
 	
 	$valid = array();
 	for ($n = $minseq-1;  $n < $maxseq;  $n++)  {
